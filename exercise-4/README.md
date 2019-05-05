@@ -1,11 +1,16 @@
 
-# Exercise 4 - HttpOnly
+# Exercise 4 - SQL Injection
+Go to the leaderboard page at
+[http://hack-yourself-first.com/Supercar/Leaderboard](http://hack-yourself-first.com/Supercar/Leaderboard).
 
-Browse to http://localhost:8080/WebGoat/start.mvc#attack/68584332/900 (login using guest/guest if you havent already). You should now be on Cross-Site Scripting (XSS) - HttpOnly Test.
+This page has a serious sql-injection vulnerability that you are just dying to exploit. But first we need to find it.
 
-The goal of this exercise is to get to know the http-only header and how it affects JavaScripts ability to read cookies. 
+:pencil2: Find the parameter that can be exploited and figure out the version of the database.
 
-Just toggle the yes/no and submit - compare the requests/responses in burpsuite and discuss with your side-man/woman. Also use web developer tools ( F12 ) and press storage - expand on cookies and see how Firefox displays cookiet with httpOnly set/not set.
+:bulb: The following queries will return the version of the database: 
 
+```sql
+Select version or @@version
+```
 
-
+:bulb: Finding the exploitable parameter won’t be enough to get the version, why?

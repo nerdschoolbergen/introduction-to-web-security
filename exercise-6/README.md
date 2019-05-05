@@ -1,10 +1,6 @@
 
-# Exercise 6 - Unchecked email 
+# Exercise 6 - Cross site request forgery
 
-Browse to http://localhost:8080/WebGoat/start.mvc#attack/1584137874/1700 (login using guest/guest if you havent already). You should now be on Parameter tampering - unchecked email.
+The site also has a page where you can change your password, https://hack-yourself-first.com/Account/ChangePassword study the form and see where the request goes.
 
-The goal of this exercise is to tamper with the parameters going to the server-side and 
-- Send a malicious script to the website admin.
-- Send a malicious script to a 'friend' from OWASP
-
-
+:pencil2: Create a new html page localy, which exploits the currently logged in user’s authentication cookie to change the password on https://hack-yourself-first.com. 

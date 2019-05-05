@@ -1,11 +1,24 @@
 
-# Exercise 5 - Parameter tampering
+# Exercise 5 - Tampering and more SQL injection
+Now that you know which database that is running in the background, we can head over to the voting page. Example http://hack-yourself-first.com/Supercar/1 the voting here has multiple vulnerabilities and should be exploited.
 
-Browse to http://localhost:8080/WebGoat/start.mvc#attack/1863884331/1700 (login using guest/guest if you havent already). You should now be on Parameter Tampering - Exploit Hidden Fields
+## Prerequisites 
+You will need a proxy to intercept the request from the browser. Proxies you can use include:
+- Fiddler
+- Charles
+- Burp suite proxy.
 
+:pencil2: Set up a proxy and intercept traffic between you and the Hack-yourself-first site.
 
-The goal of this exercise is to examine the application and exploit it by tampering with the http-parameters sent forth and back.
+:book: Check out [for setting up using Burp Suite and Firefox](guide_setup_burp.md), however you are welcome to use any other software.
 
+---
 
+:pencil2: Turn on your proxy, and use your initial vote. Then use your proxy of choice to replay the request to vote multiple times. 
 
+:pencil2: Use the exploitable parameter to extract the password for user with an `ID` of __`1`__ from the database.
 
+:bulb: You will need to do multiple queries, think of queries that expose database structures such as 
+```sql
+select * from sys.tables
+```
