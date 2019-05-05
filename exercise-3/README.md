@@ -1,13 +1,12 @@
 
-# Exercise 3 - Stored XSS
+# Exercise 3 - Parameter tampering
 
-Browse to http://localhost:8080/WebGoat/start.mvc#attack/611366032/900/1 (login using guest/guest if you havent already). You should now be on Cross-Site Scripting (XSS) stage 1.
+It seems that the developer has developed a mechanism for letting users edit their own profile. 
 
-The goal of the exercise is to login as Tom (pw:tom) and store a XSS-payload in the street-field of his profile. Then log in as Jerry (Pw:jerry) and verify that the exploit affects jerry. 
+![Edit profile](../images/edit_profile.png)
 
-Hints:
-- Javascript ````<script>Code goes here</script>````
-- Alert is ````alert()````
+:pencil2: Visit the "edit profile" page, and try to inspect other peoples data. Are you able to change edit the data?
 
+:question: Reflect on what is the issue here. How can this security weakness be fixed? How could you potentially extract all the user-data for the page?
 
-
+Stuck? Check out the [hint](hint_1.md).
