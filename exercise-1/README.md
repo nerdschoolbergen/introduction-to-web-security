@@ -5,4 +5,16 @@ We will take the form apart and study how it works, Start by looking at the form
 
 :bulb: To avoid registering your actual email, you can freely use mailinator.com. If you register with e.g. `something@mailinator.com`, you can visit their webpage and type "something" to view received emails for that name. We recommend this instead of using your own private email address.
 
-:pencil2: Find out where the request sends your form data. 
+:question: Register an account using the mailinator-service. Look at the email you receive. What major vulnerability can you spot right off the bat?
+
+:pencil2: Make yourself familiar with the developer tools in Chrome or Firefox.
+
+Right-click an element on the site, and click `Inspect element`. 
+You will also need functionality to look at the source code of the page later on. This can be done by right clicking on the page, and selecting `View page source`.
+
+Open the `Network`-pane in your developer tools, and look at the requests and responses that are passed between your browser and the site. 
+
+Open the `Storage`-pane and take a look at your cookies
+
+:pencil2: Look at the cookies that you have for this site. Is there anything there which can be exploited? 
+

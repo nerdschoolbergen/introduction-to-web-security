@@ -5,6 +5,8 @@
 
 Users may pass malicious code as input to your website, which may be executed on the server, or in the browser if the data is rendered back to the user. This exercise focuses on the latter; untrusted data being rendered back into the browser.
 
+[Read more about XSS (owasp.org)](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)).
+
 ---
 
 :pencil2: When you are logged into the site, execute a search. Do you see anything suspicious? Take a look at the source code. How is your search query shown in the source code?

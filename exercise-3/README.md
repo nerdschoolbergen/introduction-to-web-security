@@ -1,6 +1,12 @@
 
 # Exercise 3 - Parameter tampering
 
+Parameter tampering is based on manipulating the parameters sent from the client to the server in order to read or modify application data. 
+
+[Read more about parameter tampering (owasp.org)](https://www.owasp.org/index.php/Web_Parameter_Tampering)
+
+---
+
 It seems that the developer has developed a mechanism for letting users edit their own profile. 
 
 ![Edit profile](../images/edit_profile.png)
