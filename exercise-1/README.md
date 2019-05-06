@@ -5,6 +5,8 @@ We will take the form apart and study how it works, Start by looking at the form
 
 :bulb: To avoid registering your actual email, you can freely use mailinator.com. If you register with e.g. `something@mailinator.com`, you can visit their webpage and type "something" to view received emails for that name. We recommend this instead of using your own private email address.
 
+:pencil2: Go to [hack-yourself-first.com](https://hack-yourself-first.com/). Register an account using Mailinator. 
+
 :question: Register an account using the mailinator-service. Look at the email you receive. What major vulnerability can you spot right off the bat?
 
 :pencil2: Make yourself familiar with the developer tools in Chrome or Firefox.
