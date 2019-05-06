@@ -3,7 +3,7 @@
 This brand new workshop will help you understand how to think about security when building kick-ass stuff that runs on the internet.
 You will set up an intercepting proxy and explore a few common vulnerabilities using Troy Hunt's "Hack yourself first"-site.
 
-## [Open presentation slides](https://docs.google.com/presentation/d/1rSuQL1vyWFWkWpwQpmb5FD9LLpBc3is9YkU4krWsxiY/edit?usp=sharing)
+## [Open presentation slides](https://docs.google.com/presentation/d/1lKsN1b_DQbHrvrjytTvbczHx-yUNVVMU3ySdiO_Irt4/edit?usp=sharing)
 
 ## Focus of this lesson
 The purpose of this lesson is to give you an brief input into how you should think about security when developing your own stuff, as well as help you set up a small toolchain for intercepting and manipulating traffic between a client and your serverside. This will both help you understand how your application works, as well as test it using an intercepting proxy. To do this we will use the "Hack yourself first"-site.
