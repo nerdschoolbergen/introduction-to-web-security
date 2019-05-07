@@ -16,10 +16,9 @@ You will also need functionality to look at the source code of the page later on
 
 Open the `Network`-pane in your developer tools, and look at the requests and responses that are passed between your browser and the site. 
 
-Open the `Storage`-pane and take a look at your cookies
+Open the `Storage`-pane (Firefox) / `Application`-pane (Chrome) and take a look at your cookies
 
-:pencil2: Look at the cookies that you have for this site. Is there anything there which can be exploited? 
-
+When you feel comfortable using your browser, looking at the traffic and examining your cookies, go on to the next exercise where we will get our hands dirty.
 
 ### [Go to exercise 2 :arrow_right:](../exercise-2/README.md)
 
