@@ -20,3 +20,6 @@ Open the `Storage`-pane and take a look at your cookies
 
 :pencil2: Look at the cookies that you have for this site. Is there anything there which can be exploited? 
 
+
+### [Go to exercise 2 :arrow_right:](../exercise-2/README.md)
+

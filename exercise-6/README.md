@@ -10,3 +10,5 @@ Cross site request forgery (CSRF) is an attack that foces a user to execute unwa
 The site has a page where you can change your password, https://hack-yourself-first.com/Account/ChangePassword study the form and see where the request goes.
 
 :pencil2: Create a new html page localy, which exploits the currently logged in user’s authentication cookie to change the password on https://hack-yourself-first.com. 
+
+### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)

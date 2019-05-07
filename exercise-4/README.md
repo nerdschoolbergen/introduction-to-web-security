@@ -26,3 +26,5 @@ Select version or @@version
 ```
 
 :bulb: Finding the exploitable parameter won’t be enough to get the version, why?
+
+### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)

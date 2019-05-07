@@ -22,3 +22,5 @@ You will need a proxy to intercept the request from the browser. Proxies you can
 ```sql
 select * from sys.tables
 ```
+
+### [Go to exercise 6 :arrow_right:](../exercise-6/README.md)

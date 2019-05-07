@@ -29,3 +29,4 @@ Users may pass malicious code as input to your website, which may be executed on
 
 Are you able to inject malicious input which extracts the authentication cookie? Use e.g. `console.log`, show it on screen, or send it to a third party. 
 
+### [Go to exercise 3 :arrow_right:](../exercise-3/README.md)
