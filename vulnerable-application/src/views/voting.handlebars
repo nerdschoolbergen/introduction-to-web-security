@@ -1,0 +1,23 @@
+<h2>Please specify the candidate you would like to vote for</h2>
+
+<table class="pure-table pure-table-horizontal fullwidth-table">
+  <tr>
+    <th>Candidate name</th>
+    <th>Votes</th>
+    <th></th>
+  </tr>
+  <tbody>
+    {{#each candidates}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{votes}}</td>
+      <td>
+        <form method="POST" action="/vote">
+          <input type="hidden" value="{{id}}" name="candidateId" />
+          <input type="submit" value="Vote" />
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

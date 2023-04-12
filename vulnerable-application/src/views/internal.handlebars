@@ -1,0 +1,19 @@
+<h2>For internal use only</h2>
+
+<table class="pure-table pure-table-horizontal fullwidth-table">
+  <tr>
+    <th>Id</th>
+    <th>Username</th>
+    <th>Has voted</th>
+    <th></th>
+  </tr>
+  <tbody>
+    {{#each users}}
+    <tr>
+      <td id="id">{{id}}</td>
+      <td id="username">{{username}}</td>
+      <td id="hasVoted">{{hasVoted}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

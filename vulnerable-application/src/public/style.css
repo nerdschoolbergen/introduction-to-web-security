@@ -1,0 +1,14 @@
+.container {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.top-bar {
+  padding: 0.5rem 0;
+}
+
+
+.fullwidth-table {
+  width: 100%;
+  text-align: left;
+}
