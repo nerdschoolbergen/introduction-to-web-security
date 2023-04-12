@@ -1,24 +1,32 @@
-# Exercise 1 - Registration form
 
-In this exercise, we will be using the registration form at Hack-yourself-first. 
-We will take the form apart and study how it works, Start by looking at the form, and see if you can exploit it in order to discover different security weaknesses or flaws. 
+# Exercise 1 - Reflected XSS
 
-:bulb: To avoid registering your actual email, you can freely use mailinator.com. If you register with e.g. `something@mailinator.com`, you can visit their webpage and type "something" to view received emails for that name. We recommend this instead of using your own private email address.
+:book: You may have functionality in your website, where your users are able to input data - whether this is in a query parameter (e.g. `mysite.com?q=123`), or as a value in an input field. In a perfect world, we could trust our users - but in real life, some are far from honest. 
 
-:pencil2: Go to [hack-yourself-first.com](https://hack-yourself-first.com/). Register an account using Mailinator. 
+Users may pass malicious code as input to your website, which may be executed on the server, or in the browser if the data is rendered back to the user. This exercise focuses on the latter; untrusted data being rendered back into the browser.
 
-:question: Register an account using the mailinator-service. Look at the email you receive. What major vulnerability can you spot right off the bat?
+[Read more about XSS (owasp.org)](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)).
 
-:pencil2: Make yourself familiar with the developer tools in Chrome or Firefox.
+---
 
-Right-click an element on the site, and click `Inspect element`. 
-You will also need functionality to look at the source code of the page later on. This can be done by right clicking on the page, and selecting `View page source`.
+:pencil2: When you are logged into the site, execute a search. Do you see anything suspicious? Take a look at the source code. How is your search query shown in the source code?
 
-Open the `Network`-pane in your developer tools, and look at the requests and responses that are passed between your browser and the site. 
+:pencil2: Send malicious data to the server, which causes the browser to show an alert box.
 
-Open the `Storage`-pane (Firefox) / `Application`-pane (Chrome) and take a look at your cookies
+:question: The search query is persisted in the URL. Why is this a big deal? What happens if you send the link with a query to a friend ( ..or enemy)?
 
-When you feel comfortable using your browser, looking at the traffic and examining your cookies, go on to the next exercise where we will get our hands dirty.
+---
 
-### [Go to exercise 2 :arrow_right:](../exercise-2/README.md)
+:bulb: Stuck? Take a look at the [first hint](hint_1.md).
 
+:bulb: Still stuck? Take a look at the [second hint](hint_2.md).
+
+:bulb: Finished or still stuck? Check out the [solution](hint_3.md) here.
+
+---
+
+:pencil2: :star: __Optional bonus task__
+
+Are you able to inject malicious input which extracts the authentication cookie? Use e.g. `console.log`, show it on screen, or send it to a third party. 
+
+### [Go to exercise 3 :arrow_right:](../exercise-3/README.md)
