@@ -5,6 +5,10 @@ on:
     branches:
     - spring-2023
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
