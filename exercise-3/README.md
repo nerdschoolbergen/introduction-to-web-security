@@ -1,30 +1,20 @@
 
-# Exercise 4 - SQL Injection
+# Exercise 3 - Injection - Parameter Tampering
 
-SQL Injection is a vulnerability that allows an attacker to change queries that an application makes to a database. This can be done by interfering with input sent from the user, which can be interpreted by the server as valid SQL. 
+Parameter tampering is based on manipulating the parameters sent from the client to the server in order to read or modify application data.
 
-An attacker can retrieve data they are unauthorized to see, as well as performing destructive actions such as deleting or modifying your data.  
-
-[Read more about SQL Injection (owasp.org)](https://www.owasp.org/index.php/SQL_Injection).
-
-
-![Bobby Tables](../images/bobby_tables.png)
+[Read more about parameter tampering (owasp.org)](https://www.owasp.org/index.php/Web_Parameter_Tampering)
 
 ---
 
-Go to the leaderboard page at
-[http://hack-yourself-first.com/Supercar/Leaderboard](http://hack-yourself-first.com/Supercar/Leaderboard).
+It seems that the developer has developed a mechanism for letting users edit their own profile.
 
-This page has a serious sql-injection vulnerability that you are just dying to exploit. But first we need to find it.
+![Edit profile](../images/edit_profile.png)
 
-:pencil2: Find the parameter that can be exploited and figure out the version of the database.
+:pencil2: Visit the "edit profile" page, and try to inspect other peoples data. Are you able to change edit the data?
 
-:bulb: The following queries will return the version of the database: 
+:question: Reflect on what is the issue here. How can this security weakness be fixed? How could you potentially extract all the user-data for the page?
 
-```sql
-Select version or @@version
-```
+Stuck? Check out the [hint](hint_1.md).
 
-:bulb: Finding the exploitable parameter won’t be enough to get the version, why?
-
-### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)
+### [Go to exercise 4 :arrow_right:](../exercise-4/README.md)

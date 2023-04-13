@@ -13,6 +13,10 @@ The purpose of this lesson is to give you an brief input into how you should thi
 - Browser: [Chrome](https://www.google.com/chrome)
 - Code editor: [Visual Studio Code](https://code.visualstudio.com)
 
+## Prerequisites
+
+- Some knowledge about web app development and basic web technologies like HTML and HTTP is helpful
+
 ## How to get started
 
 - Start by cloning this repository into a folder on your computer. If you've never used git before, you can alternatively use the "Download ZIP" button to the right.
@@ -22,13 +26,14 @@ The purpose of this lesson is to give you an brief input into how you should thi
 
 This repository contains a set of exercises organized in folders. Each folder contains a `README.md` describing the exercise.
 
-- [Exercise 1](exercise-1/) - Reflected XSS
-- [Exercise 2](exercise-2/) - Parameter Tampering
-- [Exercise 3](exercise-3/) - SQL Injection
-- [Exercise 4](exercise-4/) - Cookie exfiltration
-- [Exercise 5](exercise-5/) - SQL Injection continued
-- [Exercise 6](exercise-6/) - Cross site request forgery
-- [Exercise 7](exercise-7/) - Fixing vulnerabilties
+- [Exercise 1](exercise-1/) - Up and running
+- [Exercise 2](exercise-2/) - Injection - Reflected XSS
+- [Exercise 3](exercise-3/) - Injection - Parameter Tampering
+- [Exercise 4](exercise-4/) - Injection - SQL Injection
+- [Exercise 5](exercise-5/) - Session hijacking
+- [Exercise 6](exercise-6/) - SQL Injection continued
+- [Exercise 7](exercise-7/) - ???
+- [Exercise 8](exercise-8/) - Fixing vulnerabilties
 
 ### Symbols and notation used in exercises
 

@@ -1,32 +1,55 @@
+# Exercise 1 - Up and running
 
-# Exercise 1 - Reflected XSS
+In this exercise you will set up the local development environment required for the next exercises.
 
-:book: You may have functionality in your website, where your users are able to input data - whether this is in a query parameter (e.g. `mysite.com?q=123`), or as a value in an input field. In a perfect world, we could trust our users - but in real life, some are far from honest. 
+You will learn to:
 
-Users may pass malicious code as input to your website, which may be executed on the server, or in the browser if the data is rendered back to the user. This exercise focuses on the latter; untrusted data being rendered back into the browser.
+- Install the required software
+- Set up and run the local development environment
 
-[Read more about XSS (owasp.org)](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)).
+## Before you start
 
----
+- :pencil2: Start by cloning this repository into a folder on your computer if you haven't done so already. If you've never used git before, you can alternatively use the the "Download ZIP" button to the right.
+- :book: Although you have this `README.md` file on your computer, it's easier to read it on GitHub with formatting. We therefore recommend you keep a web browser tab open with the exercise tasks.
 
-:pencil2: When you are logged into the site, execute a search. Do you see anything suspicious? Take a look at the source code. How is your search query shown in the source code?
+## 1.1 Installing software
 
-:pencil2: Send malicious data to the server, which causes the browser to show an alert box.
+### 1.1.1 Node.js
 
-:question: The search query is persisted in the URL. Why is this a big deal? What happens if you send the link with a query to a friend ( ..or enemy)?
+:book: Node.js is the platform/runtime that's going to run our web server and backend code. You can test if you already have Node.js installed by opening a terminal and entering `node -v` which should return a version number if it's installed.
 
----
+:pencil2: If you don't have Node.js installed, you can download the latest LTS (long-term support) release from [nodejs.org](https://nodejs.org/en/).
 
-:bulb: Stuck? Take a look at the [first hint](hint_1.md).
+:exclamation: **Note:** If you have Node installed with a version _less_ than the latest LTS version, please upgrade to the latest LTS version before continuing.
 
-:bulb: Still stuck? Take a look at the [second hint](hint_2.md).
+### 1.1.2 Chrome
 
-:bulb: Finished or still stuck? Check out the [solution](hint_3.md) here.
+:pencil2: [Install Google Chrome if you don't have it](https://www.google.com/chrome/browser/desktop/)
 
----
+## 1.2 Local development environment setup
 
-:pencil2: :star: __Optional bonus task__
+:pencil2: Open a terminal and change directories to the `vulnerable-application` folder.
 
-Are you able to inject malicious input which extracts the authentication cookie? Use e.g. `console.log`, show it on screen, or send it to a third party. 
+:pencil2: Install all [npm](https://npmjs.com) dependencies by running the following command:
 
-### [Go to exercise 3 :arrow_right:](../exercise-3/README.md)
+```bash
+$ npm install
+```
+
+:pencil2: Run the following commands to start the web app:
+
+```bash
+$ npm start
+```
+
+:pencil2: Open [http://localhost:3000](http://localhost:3000) in Chrome
+
+:book: You should now see a login prompt saying "Login to vote" on the screen.
+
+:pencil2: To stop the application, press <kbd>CTRL</kbd>+<kbd>C</kbd> while inside the terminal window you started the application in.
+
+___
+
+Now that we're all set-up, let's try to hack the app!
+
+### [Go to exercise 2 :arrow_right:](../exercise-2/README.md)
