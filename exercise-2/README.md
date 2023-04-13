@@ -1,5 +1,5 @@
 
-# Exercise 2 - Parameter tampering
+# Exercise 2 - Parameter Tampering
 
 Parameter tampering is based on manipulating the parameters sent from the client to the server in order to read or modify application data. 
 

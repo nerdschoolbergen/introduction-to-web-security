@@ -1,26 +1,34 @@
-# Web Security - Mindset, tooling and common vulnerabilities
+# Introduction To Web Security
 
-This brand new workshop will help you understand how to think about security when building kick-ass stuff that runs on the internet.
-You will set up an intercepting proxy and explore a few common vulnerabilities using Troy Hunt's "Hack yourself first"-site.
+This workshop will help you understand how to think about security when building kick-ass stuff that runs on the internet.
 
-## [Open presentation slides](https://docs.google.com/presentation/d/1lKsN1b_DQbHrvrjytTvbczHx-yUNVVMU3ySdiO_Irt4/edit?usp=sharing)
+## [Open presentation slides](https://docs.google.com/presentation/d/157E60v09ZWouGGouKGWXMLwAelqy7EuHx7_1ZpEP5_g/edit?usp=sharing)
 
 ## Focus of this lesson
-The purpose of this lesson is to give you an brief input into how you should think about security when developing your own stuff, as well as help you set up a small toolchain for intercepting and manipulating traffic between a client and your serverside. This will both help you understand how your application works, as well as test it using an intercepting proxy. To do this we will use the "Hack yourself first"-site.
+
+The purpose of this lesson is to give you an brief input into how you should think about security when developing your own stuff. We have prepared a vulnerable web application which you will run on your own PC. Through the various exercises we will go through many of the top web security problems and demonstrate each problem in our vulnerable application.
 
 ## What you need
-- A browser - E.g. Firefox or Chrome
-- An intercepting web proxy - Fiddler, Burp or Charles.
+
+- Browser: [Chrome](https://www.google.com/chrome)
+- Code editor: [Visual Studio Code](https://code.visualstudio.com)
+
+## How to get started
+
+- Start by cloning this repository into a folder on your computer. If you've never used git before, you can alternatively use the "Download ZIP" button to the right.
+- Although you have this README file on your computer it's easier to read it on GitHub, so we recommend you keep this page open with the exercise tasks.
 
 ## Exercises
 
-- [Exercise 1](exercise-1/) - Client-side validation
-- [Exercise 2](exercise-2/) - Reflected XSS
-- [Exercise 3](exercise-3/) - Parameter tampering
-- [Exercise 4](exercise-4/) - SQL Injection
-- [Exercise 5](exercise-5/) - Tampering and more SQL injection
-- [Bonus exercise 1](exercise-6/) - Cross site request forgery
-- [Bonus exercise 2](exercise-7/) - Content Security Policy
+This repository contains a set of exercises organized in folders. Each folder contains a `README.md` describing the exercise.
+
+- [Exercise 1](exercise-1/) - Reflected XSS
+- [Exercise 2](exercise-2/) - Parameter Tampering
+- [Exercise 3](exercise-3/) - SQL Injection
+- [Exercise 4](exercise-4/) - Cookie exfiltration
+- [Exercise 5](exercise-5/) - SQL Injection continued
+- [Exercise 6](exercise-6/) - Cross site request forgery
+- [Exercise 7](exercise-7/) - Fixing vulnerabilties
 
 ### Symbols and notation used in exercises
 

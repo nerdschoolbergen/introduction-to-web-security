@@ -1,1 +1,2 @@
-# Exercise 7 - Fixing vulnerabiltiies
+# Exercise 7 - Fixing vulnerabilties
+
