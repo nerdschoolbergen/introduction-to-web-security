@@ -42,9 +42,9 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/vulnerable-application:latest
 
-    # - name: Update image tag on the Azure Web App
-    #   uses: azure/webapps-container-deploy@v1
-    #   with:
-    #     app-name: '<your-webapp-name>'
-    #     slot-name: '<your-slot-name>'
-    #     images: 'erlendnerdschool/vulnerable-application:${{ github.sha }}'
+      - 
+        name: Deploy to Azure Web Apps
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'nerdschool-intro-to-web-sec'
+          images: 'index.docker.io/${{ secrets.DOCKER_USERNAME }}/vulnerable-application:latest'
