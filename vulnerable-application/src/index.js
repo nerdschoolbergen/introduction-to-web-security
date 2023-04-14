@@ -14,7 +14,9 @@ app.use(session({
   name: "session-cookie",
   cookie: {
     httpOnly: false,
-  }
+  },
+  saveUninitialized: true,
+  resave: true
 }));
 
 app.use(express.static('src/public'));
@@ -93,7 +95,7 @@ app.get('/', (req, res) => {
 });
 
 // error handler
-app.use(function(err, req, res) {
+app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = err;
 
@@ -101,6 +103,10 @@ app.use(function(err, req, res) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.on('error', (error) => {
+  console.error('error!', error);
+})
 
 app.listen(3000);
 console.log('App started on port 3000');
