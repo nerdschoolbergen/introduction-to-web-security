@@ -34,7 +34,7 @@ The codespace comes pre-configured with the following software:
 Once your codespace is created, the workshop repository will be automatically cloned into it. Now you can run the application and launch it in a browser.
 
 1. When the terminal becomes available, cd into the `vulnerable-application` directory and enter the command `npm install`.
-2. After the `npm install` command finishes, enter the command `npm start` to start the web application.
+2. After the `npm install` command finishes, enter the command `npm run dev` to start the web application.
 3. When your application starts, the codespace recognizes the port the application is running on and displays a pop-up message to let you know.
 4. Click **Open in Browser** to view your running application in a new tab.
 
@@ -43,5 +43,3 @@ Once your codespace is created, the workshop repository will be automatically cl
 1. Switch back to your codespace change some code.
 2. Go back to the running application tab in your browser and refresh to see your changes.
 3.  If you've closed the browser tab, click the **Ports** tab in VS Code, hover over the **Local Address** value for the running port, and click the **Open in Browser** icon.
-
-

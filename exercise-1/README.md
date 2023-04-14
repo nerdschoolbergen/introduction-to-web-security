@@ -39,7 +39,7 @@ $ npm install
 :pencil2: Run the following commands to start the web app:
 
 ```bash
-$ npm start
+$ npm run dev
 ```
 
 :pencil2: Open [http://localhost:3000](http://localhost:3000) in Chrome
