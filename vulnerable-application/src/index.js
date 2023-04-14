@@ -104,9 +104,5 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-app.on('error', (error) => {
-  console.error('error!', error);
-})
-
 app.listen(3000);
 console.log('App started on port 3000');
