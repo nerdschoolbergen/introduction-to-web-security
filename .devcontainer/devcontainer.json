@@ -17,7 +17,14 @@
       "version": "latest"
     }
   },
-  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yy0931.vscode-sqlite3-editor",
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  },
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
   
