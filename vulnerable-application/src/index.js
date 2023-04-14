@@ -3,8 +3,11 @@ import { engine } from 'express-handlebars';
 import session from 'express-session';
 import { getCandidates, getUserIdByCredentials, getUsers, vote } from './data/repository.js';
 import bodyParser from 'body-parser';
+import logger from 'morgan';
 
 const app = express();
+
+app.use(logger('dev'));
 
 app.use(session({
   secret: "SuperSecret",
@@ -87,6 +90,16 @@ app.get('/', (req, res) => {
   }
 
   res.render('home');
+});
+
+// error handler
+app.use(function(err, req, res) {
+  res.locals.message = err.message;
+  res.locals.error = err;
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 app.listen(3000);
