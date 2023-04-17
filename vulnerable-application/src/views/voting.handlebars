@@ -21,3 +21,24 @@
     {{/each}}
   </tbody>
 </table>
+
+<h2>Comments</h2>
+<div>
+  {{#each comments}}
+  <div>
+    <small>Author: {{author}}</small>
+    <p>{{comment}}</p>
+  </div>
+  {{/each}}
+</div>
+
+<form class="pure-form pure-form-stacked" method="POST" action="/add-comment">
+  <fieldset>
+    <legend>Add comment</legend>
+    <label for="comment">Username</label>
+    <textarea name="comment"></textarea>
+    <input type="hidden" name="userId" value="{{loggedInUser}}"/>
+    <input type="submit" class="pure-button pure-button-primary" value="Submit comment"/>
+  </fieldset>
+</form>
+

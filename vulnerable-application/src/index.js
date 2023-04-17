@@ -1,7 +1,7 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
-import { getCandidates, getUserIdByCredentials, getUsers, vote } from './data/repository.js';
+import { addComment, getCandidates, getComments, getUserIdByCredentials, getUsers, vote } from './data/repository.js';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 
@@ -28,6 +28,7 @@ app.set('views', './src/views');
 
 app.use((req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn;
+  res.locals.loggedInUser = req.session.loggedInUser;
   next()
 })
 
@@ -60,6 +61,7 @@ app.get('/internal', async (req, res) => {
   }
 
   const users = await getUsers();
+
   res.render('internal', { users });
 });
 
@@ -69,9 +71,21 @@ app.get('/voting', async (req, res) => {
     return;
   }
 
+  const comments = await getComments();
   const candidates = await getCandidates();
-  res.render('voting', { candidates });
+
+  res.render('voting', { candidates, comments });
 });
+
+app.post('/add-comment', async (req, res) => {
+  if (!req.session.isLoggedIn) {
+    res.redirect('/');
+    return;
+  }
+  await addComment(req.body);
+  res.redirect('/voting');
+
+})
 
 app.post('/vote', async (req, res) => {
   if (!req.session.isLoggedIn) {

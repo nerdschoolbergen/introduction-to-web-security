@@ -33,6 +33,15 @@ export const getCandidates = () => {
   return queryAll("SELECT id, name, votes FROM candidate");
 }
 
+export const addComment = async ({ userId, comment }) => {
+  const user = await queryOne(`SELECT * FROM user WHERE id=${userId}`);
+  if (!user) {
+    return 
+  }
+
+  db.exec(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
+}
+
 export const getUserIdByCredentials = async ({ username, password }) => {
   const result = await queryOne(`SELECT id FROM user WHERE username='${username}' AND password='${password}'`);
   return result?.id;
@@ -40,6 +49,10 @@ export const getUserIdByCredentials = async ({ username, password }) => {
 
 export const getUsers = async () => {
   return queryAll("SELECT * from user");
+}
+
+export const getComments = async () => {
+  return queryAll("SELECT * from comment");
 }
 
 export const vote = async ({ userId, candidateId }) => {
