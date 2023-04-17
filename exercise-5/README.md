@@ -1,3 +1,3 @@
-# Exercise 5 - Session hijacking
+# Exercise 6 - SQL Injection continued
 
-### [Go to exercise 6 :arrow_right:](../exercise-6/README.md)
+### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)

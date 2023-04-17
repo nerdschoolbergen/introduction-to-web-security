@@ -1,3 +1,3 @@
-# Exercise 6 - SQL Injection continued
+# Exercise 7 - ???
 
-### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)
+### [Go to exercise 8 :arrow_right:](../exercise-8/README.md)
