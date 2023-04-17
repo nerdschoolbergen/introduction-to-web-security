@@ -28,12 +28,11 @@ This repository contains a set of exercises organized in folders. Each folder co
 
 - [Exercise 1](exercise-1/) - Up and running
 - [Exercise 2](exercise-2/) - Injection - Reflected XSS
-- [Exercise 3](exercise-3/) - Injection - Parameter Tampering
-- [Exercise 4](exercise-4/) - Injection - SQL Injection
-- [Exercise 5](exercise-5/) - Session hijacking
-- [Exercise 6](exercise-6/) - SQL Injection continued
-- [Exercise 7](exercise-7/) - ???
-- [Exercise 8](exercise-8/) - Fixing vulnerabilties
+- [Exercise 3](exercise-3/) - Injection - SQL Injection
+- [Exercise 4](exercise-4/) - Injection - Persisted XSS
+- [Exercise 5](exercise-5/) - Parameter tampering with XSS
+- [Exercise 6](exercise-6/) - Injection - SQL Injection continued
+- [Exercise 8](exercise-7/) - Fixing vulnerabilties
 
 ### Symbols and notation used in exercises
 
