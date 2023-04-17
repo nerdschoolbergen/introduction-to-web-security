@@ -1,4 +1,4 @@
-# Exercise 3 - SQL Injection and broken authentication
+# Exercise 3 - SQL Injection
 
 SQL Injection is a vulnerability that allows an attacker to change queries that an application makes to a database. This can be done by interfering with input sent from the user, which can be interpreted by the server as valid SQL. 
 
@@ -10,8 +10,6 @@ An attacker can retrieve data they are unauthorized to see, as well as performin
 
 ---
 Go to the login page (log out if you are logged in). This page has a serious sql-injection vulnerability that will allow you to login as any user. 
-
-## 3.1 SQL Injection in the login form
 
 :pencil2: Try to find the SQL injection vulnerability and log in with the `user` account without providing a password. 
 
@@ -36,16 +34,16 @@ Go to the login page (log out if you are logged in). This page has a serious sql
 
 </details>
 
-## 3.2 Broken authentication
-
-:pencil2: When you are logged in, take a look at the source of the HTML document of the voting page. See anything taht sticks out? 
+:pencil2: When you are logged in, look around to see if you can find the username of other people. Try to login as someone else.s
 
 <details>
     <summary>Hint 1</summary>
-    Something is commented out
+    Look in the comment section. Some usernames are present here.
 </details>
 
-
-:pencil2: Use the newly discovered information to log in as an arbitrary user. 
+<details>
+    <summary>Hint 2</summary>
+    Look in the voting page source code. Something is commented out.
+</details>
 
 ### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)
