@@ -1,1 +1,1 @@
-# Exercise 8 - Fixing vulnerabilties
+# Exercise 7 - Fixing vulnerabilties

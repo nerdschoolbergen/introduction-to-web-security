@@ -1,6 +1,9 @@
-# Exercise 7 - SQL injection continued
+# Exercise 6 - SQL injection continued
 
-## Extract the user table schema
+In this exercise, we will look at some more complicated examples of SQL injection. 
+
+## 6.1 - Extract the user table schema
+
 :pencil2: Log out and log in using with the following username
 
 ```

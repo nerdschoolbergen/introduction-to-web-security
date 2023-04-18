@@ -11,6 +11,8 @@ An attacker can retrieve data they are unauthorized to see, as well as performin
 ---
 Go to the login page (log out if you are logged in). This page has a serious sql-injection vulnerability that will allow you to login as any user. 
 
+## 3.1  Exploiting the login form 
+
 :pencil2: Try to find the SQL injection vulnerability and log in with the `user` account without providing a password. 
 
 <details>
