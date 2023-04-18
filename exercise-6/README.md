@@ -22,4 +22,4 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 
 
 
-### [Go to exercise 8 :arrow_right:](../exercise-8/README.md)
+### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)
