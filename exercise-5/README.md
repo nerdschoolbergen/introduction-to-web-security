@@ -16,4 +16,4 @@ Parameter tampering attacks can be prevented by implementing strong input valida
 
 :bonus: Can you hide your tracks using your XSS attack, by having the script remove itself after executing the malicious vote?
 
-### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)
+### [Go to exercise 6 :arrow_right:](../exercise-6/README.md)
