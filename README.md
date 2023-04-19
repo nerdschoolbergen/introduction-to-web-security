@@ -39,7 +39,7 @@ This repository contains a set of exercises organized in folders. Each folder co
 - [Exercise 4](exercise-4/) - Injection - Persisted XSS
 - [Exercise 5](exercise-5/) - Parameter tampering with XSS
 - [Exercise 6](exercise-6/) - Injection - SQL Injection continued
-- [Exercise 8](exercise-7/) - Fixing vulnerabilties
+- [Exercise 7](exercise-7/) - Bonus exercises
 
 ### Symbols and notation used in exercises
 
