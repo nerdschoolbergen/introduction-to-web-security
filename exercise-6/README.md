@@ -12,8 +12,6 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 
 :pencil2: Inspect the source of the voting page. Do you see anything questionable? 
 
-:pencil2: Try extract the schema of the `candidate` and `comment` tables. 
-
 :pencil2: Look at the source code. Try to reason on how we are able to extract table schemas using SQL injection.
 
 :star: Bonus: Can you change the login query to execute some arbitrary SQL to steal information?
