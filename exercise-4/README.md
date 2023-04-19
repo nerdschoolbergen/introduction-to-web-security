@@ -10,6 +10,16 @@ Someone has been thoughful and added a comment section, so that there can be an 
 
 :pencil2: Exploit the comment field to inject some javascript code that is run on the voting page.
 
+<details>
+  <summary>Hint</summary>
+
+  Try using the following comment as a starting point:
+
+  ```
+<script>alert("Hacked!")</script>
+  ```
+</details>
+
 :question: What are the consequences of a persisted XSS vulnerability in a part of our application that is available for multiple users?
 
 ### [Go to exercise 4 :arrow_right:](../exercise-4/README.md)
