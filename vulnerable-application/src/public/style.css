@@ -7,12 +7,13 @@ body>main {
   padding: 1rem 0;
 }
 
-article {
+/* Login card */
+article[id=login] {
   padding: 0;
   overflow: hidden;
 }
 
-article div {
+article[id=login] div {
   padding: 1rem;
 }
 

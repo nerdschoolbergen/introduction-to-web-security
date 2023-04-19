@@ -29,20 +29,22 @@
   <h2>Comments</h2>
   <div>
   {{#each comments}}
-    <div>
+    <article class="comment">
       <h4>Author: {{author}}</h4>
       <p>{{{comment}}}</p>
-    </div>
+    </article>
   {{/each}}
   </div>
 
-  <form method="POST" action="/add-comment">
-    <fieldset>
-      <caption>Add comment</caption>
-      <label for="comment">Comment</label>
-      <textarea name="comment"></textarea>
-      <input type="hidden" name="userId" value="{{loggedInUser}}"/>
-      <input type="submit" class="pure-button pure-button-primary" value="Submit comment"/>
-    </fieldset>
-  </form>
+  <article>
+    <h2>Add comment</h2>
+    <form method="POST" action="/add-comment">
+      <fieldset>
+        <label for="comment">Comment</label>
+        <textarea name="comment"></textarea>
+        <input type="hidden" name="userId" value="{{loggedInUser}}"/>
+        <input type="submit" class="pure-button pure-button-primary" value="Submit comment"/>
+      </fieldset>
+    </form>
+  </article>
 </section>
