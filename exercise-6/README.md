@@ -7,7 +7,7 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 :pencil2: Log out and log in using with the following username
 
 ```
-' UNION ALL SELECT sql as id FROM sqlite_schema WHERE name='user'--
+' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--
 ```
 
 :pencil2: Inspect the source of the voting page. Do you see anything questionable? 
