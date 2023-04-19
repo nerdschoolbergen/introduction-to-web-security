@@ -1,3 +1,14 @@
+/* Theme */
+html {
+  --nerdschool-green: #45B788;
+}
+
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --primary: var(--nerdschool-green);
+  --primary-hover: #00796b;
+}
+
 /* Grid */
 body>main {
   display: flex;
