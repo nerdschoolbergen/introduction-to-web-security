@@ -22,4 +22,4 @@ Someone has been thoughful and added a comment section, so that there can be an 
 
 :question: What are the consequences of a persisted XSS vulnerability in a part of our application that is available for multiple users?
 
-### [Go to exercise 4 :arrow_right:](../exercise-4/README.md)
+### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)
