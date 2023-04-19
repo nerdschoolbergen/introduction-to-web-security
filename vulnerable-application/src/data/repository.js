@@ -35,8 +35,13 @@ export const getCandidates = () => {
   return queryAll("SELECT id, name, votes FROM candidate");
 }
 
-export const getUserById = async (userId) => {
-  return await queryOne(`SELECT * FROM user WHERE id=${userId}`);
+export const getHasUserVoted = async (userId) => {
+  try {
+    const user = await queryOne(`SELECT * FROM user WHERE id=${userId}`);
+    return user?.hasVoted;
+  } catch {
+    return false;
+  }
 }
 
 export const addComment = async ({ userId, comment }) => {

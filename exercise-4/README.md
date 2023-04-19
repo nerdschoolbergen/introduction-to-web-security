@@ -1,8 +1,10 @@
 # Exercise 4 - Persisted XSS
 
-Persisted XSS (Cross-Site Scripting) is a type of web vulnerability where an attacker injects malicious code into a website's database, which is then served to all users who access the affected page. This is in contrast to reflected XSS, where the malicious code is only reflected back to the user who triggered the vulnerability. Persisted XSS attacks can be especially dangerous because they can persist over long periods of time and affect many users.
+Persisted XSS (Cross-Site Scripting) is a type of web vulnerability where an attacker injects malicious code into a website's database, which is then served to all users who access the affected page. 
 
 The main difference between persisted and reflected XSS is that in persisted XSS, the malicious code is stored in the website's database, while in reflected XSS, the code is only temporarily reflected back to the user's browser. This means that persisted XSS can affect many users over an extended period, while reflected XSS is typically limited to individual users who interact with the vulnerable webpage.
+
+Persisted XSS attacks can be especially dangerous because they can persist over long periods of time and affect many users.
 
 ## 4.1 - Exploiting the comment section 
 
