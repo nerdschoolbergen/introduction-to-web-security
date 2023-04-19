@@ -12,6 +12,7 @@
   <div class="container">
     <div class="top-bar">
       {{#if isLoggedIn}}
+        <span>Hello {{ loggedInUsername }}!</span>
         <a href="/logout">Logout</a>
       {{/if}}
       <!-- <a href="/internal">User admin</a> -->

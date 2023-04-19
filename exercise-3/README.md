@@ -16,31 +16,50 @@ Go to the login page (log out if you are logged in). This page has a serious sql
 :pencil2: Try to find the SQL injection vulnerability and log in with the `user` account without providing a password. 
 
 <details>
-    <summary>Hint 1</summary>
+  <summary>Hint 1</summary>
 
-    The underlying database is a Sqlite database.
-    The code for querying the database for the correct user to login looks like this
+  The underlying database is a Sqlite database.
+  The code for querying the database for the correct user to login looks like this
 
-    ```js
-        SELECT id FROM user WHERE username='${username}' AND password='${password}'
-    ```
+  ```js
+SELECT id FROM user WHERE username='${username}' AND password='${password}'
+  ```
 
-    See anything suspicious?
+  See anything suspicious?
 
 </details>
 
 <details>
-    <summary>Hint 2</summary>
+  <summary>Hint 2</summary>
 
-    Find a way to send in user input that discards any WHERE-clause after the username check, so that only `.. WHERE user=<input>` is evaluated. 
-
+  Find a way to send in user input that discards any WHERE-clause after the username check, so that only `.. WHERE user=<input>` is evaluated. 
 </details>
 
-:pencil2: When you are logged in, look around to see if you can find the username of other people. Try to login as someone else.s
+<details>
+  <summary>Solution</summary>
+
+  Set the username field to:
+  ```
+  user';--
+  ```
+
+  You should now be able to log in without a password. 
+
+  Why is this happening?
+  The resulting SQL statement executed in the code will look like this:
+
+  ```javascript
+  SELECT id FROM user WHERE username='user';--' AND password=''
+  ```
+
+  The part of the SQL statment after the `--` will be ignored, therefore the password value will be ignored, allowing the login form password to be ignored.
+</details>
+
+:pencil2: When you are logged in, look around to see if you can find the username of other people. Try to login as someone else.
 
 <details>
-    <summary>Hint 1</summary>
-    Look in the comment section. Some usernames are present here.
+  <summary>Hint 1</summary>
+  Look in the comment section. Some usernames are present here.
 </details>
 
 <details>

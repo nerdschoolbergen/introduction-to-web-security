@@ -29,6 +29,7 @@ app.set('views', './src/views');
 app.use((req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn;
   res.locals.loggedInUser = req.session.loggedInUser;
+  res.locals.loggedInUsername = req.session.loggedInUsername;
   next()
 })
 
@@ -40,6 +41,7 @@ app.post('/login', async (req, res) => {
   }
 
   req.session.loggedInUser = loggedInUserId;
+  req.session.loggedInUsername = req.body.username;
   req.session.isLoggedIn = true;
   res.redirect("/voting");
 });

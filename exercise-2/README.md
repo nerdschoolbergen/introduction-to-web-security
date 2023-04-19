@@ -28,13 +28,13 @@ Users may pass malicious code as input to your website, which may be executed on
 </details>
 
 <details>
-    <summary>Hint 3</summary>
-    
-    Have a look at this example. The following link will execute a script that alerts the user with the message "hello". 
-    ```
-      http://localhost:3000/error?message=<script>alert("hello");</script>
-    ```
+  <summary>Hint 3</summary>
+  
+  Have a look at this example. The following link will execute a script that alerts the user with the message "hello".
 
+  ```
+  http://localhost:3000/error?message=<script>alert("hello");</script>
+  ```
 </details>
 
 ---

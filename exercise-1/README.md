@@ -46,6 +46,8 @@ $ npm run dev
 
 :book: You should now see a login prompt saying "Login to vote" on the screen.
 
+:pencil2: Test that you are able to log in via username `user` and password `user`. Log out again afterwards.
+
 :pencil2: To stop the application, press <kbd>CTRL</kbd>+<kbd>C</kbd> while inside the terminal window you started the application in.
 
 :book: If you need to restore the state of the database to its initial state, you can run the command `npm run seed`.
