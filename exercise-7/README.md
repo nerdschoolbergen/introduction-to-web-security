@@ -1,6 +1,18 @@
-# Exercise 7 - Fixing vulnerabilties
+# Exercise 7 - Bonus exercises
 
 If you have come this far; **great job**! 
+
+## 7.1 - Find new vulnerabilities
+
+Suggestions:
+
+- Try to create new database tables
+- Try to drop database tables
+- Extract all data from tables
+- Replace the whole voting page with a completely new page
+- Send cookie data to your own separate attacker website
+
+## 7.2 - Fix vulnerabilities
 
 :pencil2: Open the application and try to fix the vulnerabilties that we have uncovered during the exercises. 
 
