@@ -35,10 +35,14 @@ export const getCandidates = () => {
   return queryAll("SELECT id, name, votes FROM candidate");
 }
 
+export const getUserById = async (userId) => {
+  return await queryOne(`SELECT * FROM user WHERE id=${userId}`);
+}
+
 export const addComment = async ({ userId, comment }) => {
   const user = await queryOne(`SELECT * FROM user WHERE id=${userId}`);
   if (!user) {
-    return 
+    return
   }
 
   ``

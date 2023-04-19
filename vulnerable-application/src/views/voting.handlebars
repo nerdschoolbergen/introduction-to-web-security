@@ -1,5 +1,9 @@
 <section>
+  {{#if hasVoted}}
+  <h2>Your vote has been cast!</h2>
+  {{else}}
   <h2>Please specify the candidate you would like to vote for</h2>
+  {{/if}}
   <figure>
     <table role="grid">
       <thead>
@@ -15,7 +19,9 @@
           <td>
             <form method="POST" action="/vote">
               <input type="hidden" value="{{id}}" name="candidateId" />
+              {{#unless ../hasVoted}}
               <input type="submit" value="Vote" />
+              {{/unless}}
             </form>
           </td>
         </tr>
@@ -28,12 +34,12 @@
 <section>
   <h2>Comments</h2>
   <div>
-  {{#each comments}}
+    {{#each comments}}
     <article class="comment">
       <h4>Author: {{author}}</h4>
       <p>{{{comment}}}</p>
     </article>
-  {{/each}}
+    {{/each}}
   </div>
 
   <article>
@@ -42,8 +48,8 @@
       <fieldset>
         <label for="comment">Comment</label>
         <textarea name="comment"></textarea>
-        <input type="hidden" name="userId" value="{{loggedInUser}}"/>
-        <input type="submit" class="pure-button pure-button-primary" value="Submit comment"/>
+        <input type="hidden" name="userId" value="{{loggedInUser}}" />
+        <input type="submit" class="pure-button pure-button-primary" value="Submit comment" />
       </fieldset>
     </form>
   </article>

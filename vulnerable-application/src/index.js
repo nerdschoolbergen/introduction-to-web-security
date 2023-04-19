@@ -1,7 +1,7 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
-import { addComment, getCandidates, getComments, getUserIdByCredentials, getUsers, vote } from './data/repository.js';
+import { addComment, getCandidates, getComments, getUserById, getUserIdByCredentials, getUsers, vote } from './data/repository.js';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 
@@ -73,10 +73,16 @@ app.get('/voting', async (req, res) => {
     return;
   }
 
-  const comments = await getComments();
-  const candidates = await getCandidates();
+  const userPromise = getUserById(req.session.loggedInUser);
+  const commentsPromise = getComments();
+  const candidatesPromise = getCandidates();
 
-  res.render('voting', { candidates, comments });
+  const [user, comments, candidates] = await Promise.all([userPromise, commentsPromise, candidatesPromise]);
+  const hasVoted = !!user?.hasVoted;
+
+  console.log(hasVoted);
+
+  res.render('voting', { candidates, comments, hasVoted });
 });
 
 app.post('/add-comment', async (req, res) => {
