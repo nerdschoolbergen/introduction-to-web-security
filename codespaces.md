@@ -16,7 +16,7 @@ When a personal account has used all of either the included storage or compute u
 
 1. Click on the **Open in GitHub Codespaces** button below:
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=spring-2023&repo=130809732)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=130809732)
 
 **TODO: Replace URL above with final URL before merging branch!**
 

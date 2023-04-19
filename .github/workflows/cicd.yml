@@ -3,7 +3,7 @@ name: Build and deploy container image to Azure Web Apps
 on:
   push:
     branches:
-    - spring-2023
+    - master
 
 permissions:
   id-token: write
