@@ -7,7 +7,7 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 :pencil2: Log out and log in using with the following username
 
 ```
-' UNION ALL SELECT sql as id FROM sqlite_schema WHERE name='user';--
+' UNION ALL SELECT sql as id FROM sqlite_schema WHERE name='user'--
 ```
 
 :pencil2: Inspect the source of the voting page. Do you see anything questionable? 
@@ -18,8 +18,11 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 
 :star: Bonus: Can you change the login query to execute some arbitrary SQL to steal information?
 
-## Get all users passwords
+## Get a users password
 
+The developers of this solution has not followed any good practices, and has stored the passwords as clear text! 
+
+:pencil2: Try to use a similar technique as in the previous task to extract a users password. 
 
 
 ### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)
