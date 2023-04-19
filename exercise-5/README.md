@@ -14,6 +14,6 @@ Parameter tampering attacks can be prevented by implementing strong input valida
 
 :pencil2: Try to exploit the comment field by submitting a persistent XSS attack that forces the all users to vote for the candidate Eleanor Wheeler. 
 
-:bonus: Can you hide your tracks using your XSS attack, by having the script remove itself after executing the malicious vote?
+:star: Can you hide your tracks using your XSS attack, by having the script remove itself after executing the malicious vote?
 
 ### [Go to exercise 6 :arrow_right:](../exercise-6/README.md)
