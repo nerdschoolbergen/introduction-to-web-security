@@ -15,7 +15,7 @@ Someone has been thoughful and added a comment section, so that there can be an 
 
   Try using the following comment as a starting point:
 
-  ```
+  ```html
 <script>alert("Hacked!")</script>
   ```
 </details>
