@@ -1,11 +1,26 @@
-<form class="pure-form pure-form-stacked" method="POST" action="/login">
-  <fieldset>
-    <legend>Login to vote!</legend>
-    <label for="username">Username</label>
-    <input type="text" name="username" placeholder="Username" />
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="Password" />
-    <input type="submit" class="pure-button pure-button-primary" value="Login"/>
-  </fieldset>
-</form>
-
+<article class="grid">
+  <div>
+    <hgroup>
+      <h1>Sign in</h1>
+      <h2>Sign in to vote!</h2>
+    </hgroup>
+    <form method="POST" action="/login">
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        aria-label="Username"
+        autocomplete="nickname"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        aria-label="Password"
+        autocomplete="current-password"
+      />
+      <button type="submit" class="contrast" value="Login">Login</button>
+    </form>
+  </div>
+  <div></div>
+</article>

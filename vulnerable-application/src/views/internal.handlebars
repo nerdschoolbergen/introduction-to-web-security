@@ -1,12 +1,12 @@
 <h2>For internal use only</h2>
 
-<table class="pure-table pure-table-horizontal fullwidth-table">
-  <tr>
-    <th>Id</th>
-    <th>Username</th>
-    <th>Has voted</th>
-    <th></th>
-  </tr>
+<table role="grid">
+  <thead>
+    <th scope="col">Id</th>
+    <th scope="col">Username</th>
+    <th scope="col">Has voted</th>
+    <th scope="col"></th>
+  </thead>
   <tbody>
     {{#each users}}
     <tr>

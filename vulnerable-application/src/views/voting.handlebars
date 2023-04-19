@@ -1,44 +1,48 @@
-<h2>Please specify the candidate you would like to vote for</h2>
+<section>
+  <h2>Please specify the candidate you would like to vote for</h2>
+  <figure>
+    <table role="grid">
+      <thead>
+        <th scope="col">Candidate name</th>
+        <th scope="col">Votes</th>
+        <th scope="col"></th>
+      </thead>
+      <tbody>
+        {{#each candidates}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{votes}}</td>
+          <td>
+            <form method="POST" action="/vote">
+              <input type="hidden" value="{{id}}" name="candidateId" />
+              <input type="submit" value="Vote" />
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </figure>
+</section>
 
-<table class="pure-table pure-table-horizontal fullwidth-table">
-  <tr>
-    <th>Candidate name</th>
-    <th>Votes</th>
-    <th></th>
-  </tr>
-  <tbody>
-    {{#each candidates}}
-    <tr>
-      <td>{{name}}</td>
-      <td>{{votes}}</td>
-      <td>
-        <form method="POST" action="/vote">
-          <input type="hidden" value="{{id}}" name="candidateId" />
-          <input type="submit" value="Vote" />
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-
-<h2>Comments</h2>
-<div>
-  {{#each comments}}
+<section>
+  <h2>Comments</h2>
   <div>
-    <small>Author: {{author}}</small>
-    <p>{{{comment}}}</p>
-  </div>
+  {{#each comments}}
+    <div>
+      <h4>Author: {{author}}</h4>
+      <p>{{{comment}}}</p>
+    </div>
   {{/each}}
-</div>
+  </div>
 
-<form class="pure-form pure-form-stacked" method="POST" action="/add-comment">
-  <fieldset>
-    <legend>Add comment</legend>
-    <label for="comment">Username</label>
-    <textarea name="comment"></textarea>
-    <input type="hidden" name="userId" value="{{loggedInUser}}"/>
-    <input type="submit" class="pure-button pure-button-primary" value="Submit comment"/>
-  </fieldset>
-</form>
-
+  <form method="POST" action="/add-comment">
+    <fieldset>
+      <caption>Add comment</caption>
+      <label for="comment">Comment</label>
+      <textarea name="comment"></textarea>
+      <input type="hidden" name="userId" value="{{loggedInUser}}"/>
+      <input type="submit" class="pure-button pure-button-primary" value="Submit comment"/>
+    </fieldset>
+  </form>
+</section>

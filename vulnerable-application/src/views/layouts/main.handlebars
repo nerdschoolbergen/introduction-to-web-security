@@ -3,22 +3,55 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vulnerable App</title>
-  <link rel="stylesheet" type="text/css" href="./pure-min.css" />
+
+  <!-- Pico.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
   <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
 
 <body>
-  <div class="container">
-    <div class="top-bar">
+  <!-- Nav -->
+    <nav class="container-fluid">
+      <ul>
+        <li>
+          <a href="/" class="contrast"><strong>Vulnerable App</strong></a>
+        </li>
+      </ul>
       {{#if isLoggedIn}}
-        <span>Hello {{ loggedInUsername }}!</span>
-        <a href="/logout">Logout</a>
-      {{/if}}
+      <ul>
+        <li>
+          Hello {{ loggedInUsername }}!
+        </li>
+        <li>
+          <details role="list" dir="rtl">
+            <summary aria-haspopup="listbox" role="link" class="secondary">Logout</summary>
+            <ul role="listbox">
+              <li><a href="/logout" data-theme-switcher="auto">Logout</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
       <!-- <a href="/internal">User admin</a> -->
-    </div>
-    {{{body}}}
-  </div>
-</body>
+      {{/if}}
+    </nav>
+    <!-- ./ Nav -->
 
+    <!-- Main -->
+    <main class="container">
+      {{{body}}}
+    </main>
+
+    <!-- ./ Main -->
+
+    <!-- Footer -->
+    <footer class="container-fluid">
+      <small>
+        <a href="https://www.nerdschool.no">Bergen Nerdschool</a>
+        </small>
+    </footer>
+    <!-- ./ Footer -->
+</body>
 </html>
+
