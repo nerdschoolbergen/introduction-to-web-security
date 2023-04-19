@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 app.post('/login', async (req, res) => {
   const loggedInUserId = await getUserIdByCredentials(req.body);
   if (!loggedInUserId) {
-    res.redirect(`/error?msg=unable to log in user ${req.body.username}`);
+    res.redirect(`/error?message=unable to log in user ${req.body.username}`);
     return
   }
 
@@ -51,7 +51,7 @@ app.get('/logout', async (req, res) => {
 });
 
 app.get('/error', (req, res) => {
-  res.render('error', { msg: req.query.msg });
+  res.render('error', { message: req.query.message });
 });
 
 app.get('/internal', async (req, res) => {
