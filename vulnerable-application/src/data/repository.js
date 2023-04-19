@@ -38,7 +38,7 @@ export const getCandidates = () => {
 export const getHasUserVoted = async (userId) => {
   try {
     const user = await queryOne(`SELECT * FROM user WHERE id=${userId}`);
-    return user?.hasVoted;
+    return user?.hasVoted === 1;
   } catch {
     return false;
   }

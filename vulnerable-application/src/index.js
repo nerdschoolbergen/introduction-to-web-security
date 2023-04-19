@@ -73,13 +73,11 @@ app.get('/voting', async (req, res) => {
     return;
   }
 
-  const hasVoted = getHasUserVoted(req.session.loggedInUser);
+  const hasUserVotedPromise = getHasUserVoted(req.session.loggedInUser);
   const commentsPromise = getComments();
   const candidatesPromise = getCandidates();
 
-  const [user, comments, candidates] = await Promise.all([hasVoted, commentsPromise, candidatesPromise]);
-
-  console.log(hasVoted);
+  const [hasVoted, comments, candidates] = await Promise.all([hasUserVotedPromise, commentsPromise, candidatesPromise]);
 
   res.render('voting', { candidates, comments, hasVoted });
 });
