@@ -1,24 +1,58 @@
-# Exercise 1 - Registration form
+# Exercise 1 - Up and running
 
-In this exercise, we will be using the registration form at Hack-yourself-first. 
-We will take the form apart and study how it works, Start by looking at the form, and see if you can exploit it in order to discover different security weaknesses or flaws. 
+In this exercise you will set up the local development environment required for the next exercises.
 
-:bulb: To avoid registering your actual email, you can freely use mailinator.com. If you register with e.g. `something@mailinator.com`, you can visit their webpage and type "something" to view received emails for that name. We recommend this instead of using your own private email address.
+You will learn to:
 
-:pencil2: Go to [hack-yourself-first.com](https://hack-yourself-first.com/). Register an account using Mailinator. 
+- Install the required software
+- Set up and run the local development environment
 
-:question: Register an account using the mailinator-service. Look at the email you receive. What major vulnerability can you spot right off the bat?
+## Before you start
 
-:pencil2: Make yourself familiar with the developer tools in Chrome or Firefox.
+- :pencil2: Start by cloning this repository into a folder on your computer if you haven't done so already. If you've never used git before, you can alternatively use the the "Download ZIP" button to the right.
+- :book: Although you have this `README.md` file on your computer, it's easier to read it on GitHub with formatting. We therefore recommend you keep a web browser tab open with the exercise tasks.
 
-Right-click an element on the site, and click `Inspect element`. 
-You will also need functionality to look at the source code of the page later on. This can be done by right clicking on the page, and selecting `View page source`.
+## 1.1 Installing software
 
-Open the `Network`-pane in your developer tools, and look at the requests and responses that are passed between your browser and the site. 
+### 1.1.1 Node.js
 
-Open the `Storage`-pane (Firefox) / `Application`-pane (Chrome) and take a look at your cookies
+:book: Node.js is the platform/runtime that's going to run our web server and backend code. You can test if you already have Node.js installed by opening a terminal and entering `node -v` which should return a version number if it's installed.
 
-When you feel comfortable using your browser, looking at the traffic and examining your cookies, go on to the next exercise where we will get our hands dirty.
+:pencil2: If you don't have Node.js installed, you can download the latest LTS (long-term support) release from [nodejs.org](https://nodejs.org/en/).
+
+:exclamation: **Note:** If you have Node installed with a version _less_ than the latest LTS version, please upgrade to the latest LTS version before continuing.
+
+### 1.1.2 Chrome
+
+:pencil2: [Install Google Chrome if you don't have it](https://www.google.com/chrome/browser/desktop/)
+
+## 1.2 Local development environment setup
+
+:pencil2: Open a terminal and change directories to the `vulnerable-application` folder.
+
+:pencil2: Install all [npm](https://npmjs.com) dependencies by running the following command:
+
+```bash
+$ npm install
+```
+
+:pencil2: Run the following commands to start the web app:
+
+```bash
+$ npm run dev
+```
+
+:pencil2: Open [http://localhost:3000](http://localhost:3000) in Chrome
+
+:book: You should now see a login prompt saying "Login to vote" on the screen.
+
+:pencil2: Test that you are able to log in via username `user` and password `user`. Log out again afterwards.
+
+:pencil2: To stop the application, press <kbd>CTRL</kbd>+<kbd>C</kbd> while inside the terminal window you started the application in.
+
+:book: If you need to restore the state of the database to its initial state, you can run the command `npm run seed`.
+___
+
+Now that we're all set-up, let's try to hack the app!
 
 ### [Go to exercise 2 :arrow_right:](../exercise-2/README.md)
-

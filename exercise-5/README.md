@@ -1,26 +1,45 @@
+# Exercise 5 - Parameter tampering and XSS
 
-# Exercise 5 - Tampering and more SQL injection
-Now that you know which database that is running in the background, we can head over to the voting page. Example http://hack-yourself-first.com/Supercar/1 the voting here has multiple vulnerabilities and should be exploited.
+Parameter tampering is a type of web vulnerability where an attacker modifies input parameters in a URL or form submission to gain unauthorized access or perform malicious actions on a web application. 
 
-## Prerequisites 
-You will need a proxy to intercept the request from the browser. Proxies you can use include:
-- Fiddler
-- Charles
-- Burp suite proxy.
+By altering parameters such as account numbers, transaction amounts, or user IDs, an attacker can manipulate the application to perform actions that were not intended by the application's designers, such as accessing other users' data or bypassing authentication checks.
 
-:pencil2: Set up a proxy and intercept traffic between you and the Hack-yourself-first site.
+Parameter tampering attacks can be prevented by implementing strong input validation and using secure encryption and authentication measures.
 
-:book: Check out [for setting up using Burp Suite and Firefox](guide_setup_burp.md), however you are welcome to use any other software.
+## 5.1 - Tampering with the comment field
 
----
+:pencil2: Open your browsers inspector and look at the comment form. Tamper with parameters, and try to submit a comment on behalf of someone else.
 
-:pencil2: Turn on your proxy, and use your initial vote. Then use your proxy of choice to replay the request to vote multiple times. 
+<details>
+  <summary>Hint 1</summary>
 
-:pencil2: Use the exploitable parameter to extract the password for user with an `ID` of __`1`__ from the database.
+  Try looking at the comment form markup to see if you can identify a way to control what user is voting.
+</details>
 
-:bulb: You will need to do multiple queries, think of queries that expose database structures such as 
-```sql
-select * from sys.tables
-```
+<details>
+  <summary>Solution</summary>
+
+  Open Chrome Dev Tools and use the Elements tab to edit the userId input field in the comment form.
+</details>
+
+
+## 5.2 - How to rig an election
+
+:pencil2: Try to exploit the comment field by submitting a persistent XSS attack that forces the all users to vote for the candidate Eleanor Wheeler.
+
+<details>
+  <summary>Solution</summary>
+
+  Submit the following markup as a comment:
+
+  ```html
+<script>window.addEventListener("DOMContentLoaded", (event) => {
+  for(el of document.getElementsByName("candidateId")) { el.setAttribute("value", "2") }
+});</script>
+  ```
+</details>
+
+:star: Can you hide your tracks using your XSS attack, by having the script remove itself after executing the malicious vote?
+
 
 ### [Go to exercise 6 :arrow_right:](../exercise-6/README.md)

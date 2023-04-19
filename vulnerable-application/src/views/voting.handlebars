@@ -1,0 +1,56 @@
+<section>
+  {{#if hasVoted}}
+  <h2>Your vote has been cast!</h2>
+  {{else}}
+  <h2>Please specify the candidate you would like to vote for</h2>
+  {{/if}}
+  <figure>
+    <table role="grid">
+      <thead>
+        <th scope="col">Candidate name</th>
+        <th scope="col">Votes</th>
+        <th scope="col"></th>
+      </thead>
+      <tbody>
+        {{#each candidates}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{votes}}</td>
+          <td>
+            <form method="POST" action="/vote">
+              <input type="hidden" value="{{id}}" name="candidateId" />
+              {{#unless ../hasVoted}}
+              <input type="submit" value="Vote" />
+              {{/unless}}
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </figure>
+</section>
+
+<section>
+  <h2>Comments</h2>
+  <div>
+    {{#each comments}}
+    <article class="comment">
+      <h4>Author: {{author}}</h4>
+      <p>{{{comment}}}</p>
+    </article>
+    {{/each}}
+  </div>
+
+  <article>
+    <h2>Add comment</h2>
+    <form method="POST" action="/add-comment">
+      <fieldset>
+        <label for="comment">Comment</label>
+        <textarea name="comment"></textarea>
+        <input type="hidden" name="userId" value="{{loggedInUser}}" />
+        <input type="submit" class="pure-button pure-button-primary" value="Submit comment" />
+      </fieldset>
+    </form>
+  </article>
+</section>

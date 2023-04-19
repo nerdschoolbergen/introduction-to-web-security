@@ -1,14 +1,26 @@
+# Exercise 6 - SQL injection continued
 
-# Exercise 6 - Cross site request forgery
+In this exercise, we will look at some more complicated examples of SQL injection. 
 
-Cross site request forgery (CSRF) is an attack that foces a user to execute unwanted actions in a web application for which they are authenticated. This is done through tricking the victim into submitting a malicious request to the server from another site. 
+## 6.1 - Extract the user table schema
 
-[Read more about CSRF (owasp.org)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
+:pencil2: Log out and log in using with the following username
 
----
+```
+' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--
+```
 
-The site has a page where you can change your password, https://hack-yourself-first.com/Account/ChangePassword study the form and see where the request goes.
+:pencil2: Inspect the source of the voting page. Do you see anything questionable? 
 
-:pencil2: Create a new html page localy, which exploits the currently logged in user’s authentication cookie to change the password on https://hack-yourself-first.com. 
+:pencil2: Look at the source code. Try to reason on how we are able to extract table schemas using SQL injection.
+
+:star: Bonus: Can you change the login query to execute some arbitrary SQL to steal information?
+
+## Get a users password
+
+The developers of this solution has not followed any good practices, and has stored the passwords as clear text! 
+
+:pencil2: Try to use a similar technique as in the previous task to extract a users password. 
+
 
 ### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)

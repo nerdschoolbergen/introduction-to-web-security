@@ -1,9 +1,22 @@
-# Content Security Policy
+# Exercise 7 - Bonus exercises
 
-The norwegian newspaper “Dagens Næringsliv” have heard that you are now an expert in web application security, therefore they have hired you to help them make use of the Content-Security-Policy header that they sorely are missing.
+If you have come this far; **great job**! 
 
-Requirements: An web proxy such as fiddler/burp/charles
+## 7.1 - Find new vulnerabilities
 
-:pencil2: Use fiddler/charles/burp to inject a CSP header into https://www.dn.no/ on your local machiene.
+Suggestions:
 
-:bulb: using fiddler script you can inject the csp header into every page that loads from dn.no with this script
+- Try to create new database tables
+- Try to drop database tables
+- Extract all data from tables
+- Replace the whole voting page with a completely new page
+- Send cookie data to your own separate attacker website
+
+## 7.2 - Fix vulnerabilities
+
+:pencil2: Open the application and try to fix the vulnerabilties that we have uncovered during the exercises. 
+
+:book: Prepared statements in the `sqlite3` library: https://github.com/TryGhost/node-sqlite3/wiki/API#preparesql--param---callback
+
+:book: Example of santizing input in Express.js: https://express-validator.github.io/docs/guides/getting-started/#sanitizing-inputs
+

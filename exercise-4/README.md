@@ -1,30 +1,27 @@
+# Exercise 4 - Persisted XSS
 
-# Exercise 4 - SQL Injection
+Persisted XSS (Cross-Site Scripting) is a type of web vulnerability where an attacker injects malicious code into a website's database, which is then served to all users who access the affected page. 
 
-SQL Injection is a vulnerability that allows an attacker to change queries that an application makes to a database. This can be done by interfering with input sent from the user, which can be interpreted by the server as valid SQL. 
+The main difference between persisted and reflected XSS is that in persisted XSS, the malicious code is stored in the website's database, while in reflected XSS, the code is only temporarily reflected back to the user's browser. This means that persisted XSS can affect many users over an extended period, while reflected XSS is typically limited to individual users who interact with the vulnerable webpage.
 
-An attacker can retrieve data they are unauthorized to see, as well as performing destructive actions such as deleting or modifying your data.  
+Persisted XSS attacks can be especially dangerous because they can persist over long periods of time and affect many users.
 
-[Read more about SQL Injection (owasp.org)](https://www.owasp.org/index.php/SQL_Injection).
+## 4.1 - Exploiting the comment section 
 
+Someone has been thoughful and added a comment section, so that there can be an open discussion about the candidates. How nice! 
 
-![Bobby Tables](../images/bobby_tables.png)
+:pencil2: Exploit the comment field to inject some javascript code that is run on the voting page.
 
----
+<details>
+  <summary>Hint</summary>
 
-Go to the leaderboard page at
-[http://hack-yourself-first.com/Supercar/Leaderboard](http://hack-yourself-first.com/Supercar/Leaderboard).
+  Try using the following comment as a starting point:
 
-This page has a serious sql-injection vulnerability that you are just dying to exploit. But first we need to find it.
+  ```html
+<script>alert("Hacked!")</script>
+  ```
+</details>
 
-:pencil2: Find the parameter that can be exploited and figure out the version of the database.
-
-:bulb: The following queries will return the version of the database: 
-
-```sql
-Select version or @@version
-```
-
-:bulb: Finding the exploitable parameter won’t be enough to get the version, why?
+:question: What are the consequences of a persisted XSS vulnerability in a part of our application that is available for multiple users?
 
 ### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)

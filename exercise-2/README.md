@@ -1,7 +1,9 @@
 
 # Exercise 2 - Reflected XSS
 
-:book: You may have functionality in your website, where your users are able to input data - whether this is in a query parameter (e.g. `mysite.com?q=123`), or as a value in an input field. In a perfect world, we could trust our users - but in real life, some are far from honest. 
+Reflected XSS (Cross-Site Scripting) is a type of web vulnerability where an attacker injects malicious code into a website's input fields, which is then reflected back to the user's browser in a way that executes the code. This can allow the attacker to steal sensitive information from the user, such as login credentials, or to perform actions on the user's behalf within the vulnerable website. Reflected XSS attacks typically rely on tricking users into clicking a malicious link or visiting a specially crafted webpage that contains the malicious code.
+
+You may have functionality in your website, where your users are able to input data - whether this is in a query parameter (e.g. `mysite.com?q=123`), or as a value in an input field. In a perfect world, we could trust our users - but in real life, some are far from honest.
 
 Users may pass malicious code as input to your website, which may be executed on the server, or in the browser if the data is rendered back to the user. This exercise focuses on the latter; untrusted data being rendered back into the browser.
 
@@ -9,24 +11,38 @@ Users may pass malicious code as input to your website, which may be executed on
 
 ---
 
-:pencil2: When you are logged into the site, execute a search. Do you see anything suspicious? Take a look at the source code. How is your search query shown in the source code?
+:pencil2: When trying to log in, try to see if you can produce an error. Do you see anything unusual about how the error message is presented?
 
-:pencil2: Send malicious data to the server, which causes the browser to show an alert box.
-
-:question: The search query is persisted in the URL. Why is this a big deal? What happens if you send the link with a query to a friend ( ..or enemy)?
+:question: What are the consequences of having a reflected XSS vulnerability in our app? What happens if you send a where you have crafted a "special" query to a friend ( ..or enemy)?
 
 ---
 
-:bulb: Stuck? Take a look at the [first hint](hint_1.md).
+<details>
+    <summary>Hint 1</summary>
+    Look at the URL query parameter. What happens if you try changing the query parameter?
+</details>
 
-:bulb: Still stuck? Take a look at the [second hint](hint_2.md).
+<details>
+    <summary>Hint 2</summary>
+    Try to pass something that is evaluated by the browser as the query parameter.
+</details>
 
-:bulb: Finished or still stuck? Check out the [solution](hint_3.md) here.
+<details>
+  <summary>Hint 3</summary>
+  
+  Have a look at this example. The following link will execute a script that alerts the user with the message "hello".
+
+  ```
+  http://localhost:3000/error?message=<script>alert("hello");</script>
+  ```
+</details>
 
 ---
 
 :pencil2: :star: __Optional bonus task__
 
 Are you able to inject malicious input which extracts the authentication cookie? Use e.g. `console.log`, show it on screen, or send it to a third party. 
+
+:question: What are the consequences of stealing an authentication cookie?
 
 ### [Go to exercise 3 :arrow_right:](../exercise-3/README.md)

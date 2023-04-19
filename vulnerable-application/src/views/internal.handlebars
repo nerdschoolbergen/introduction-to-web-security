@@ -1,0 +1,18 @@
+<h2>For internal use only</h2>
+
+<table role="grid">
+  <thead>
+    <th scope="col">Id</th>
+    <th scope="col">Username</th>
+    <th scope="col">Has voted</th>
+  </thead>
+  <tbody>
+    {{#each users}}
+    <tr>
+      <td id="id">{{id}}</td>
+      <td id="username">{{username}}</td>
+      <td id="hasVoted">{{hasVoted}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
