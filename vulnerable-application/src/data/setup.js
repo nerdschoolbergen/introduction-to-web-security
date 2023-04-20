@@ -37,7 +37,7 @@ const sql = `
          ('Michael Gardner');
 
   insert into comment (author, comment)
-  values ('zerathul', 'I think Isabel Evans is the best candidate!'),
+  values ('zeratul', 'I think Isabel Evans is the best candidate!'),
          ('sarah_kerrigan', 'Thats stupid! Charlie McCarthy is clearly more qualified.');
 `;
 
