@@ -81,4 +81,4 @@ SELECT id FROM user WHERE username='${username}' AND password='${password}'
     Look in the voting page source code (right click anywhere on the page and select "View page source"). Something is commented out.
 </details>
 
-### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)
+### [Go to exercise 4 :arrow_right:](../exercise-4/README.md)
