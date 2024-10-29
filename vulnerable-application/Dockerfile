@@ -3,10 +3,10 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm i -g npm@9.1.1 && \
-    npm i --production --silent && \
-    find /app/node_modules/ ! -user root | xargs chown root:root && \
-    mv node_modules ../
+RUN npm i --production --silent
+RUN find /app/node_modules/ ! -user root -print0 | xargs -0 -r chown root:root
+RUN mv node_modules ../
+
 COPY . .
 EXPOSE 3000
 RUN chown -R node /app
