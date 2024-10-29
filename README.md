@@ -23,9 +23,10 @@ The purpose of this lesson is to give you an brief input into how you should thi
 - Although you have this README file on your computer it's easier to read it on GitHub, so we recommend you keep this page open with the exercise tasks.
 
 ## About the vulnerable application
+
 **This is an application that is written with the worst possible practices. Do not use anything here as an example for anything.**
 
-You can assume that you have access to the application source code, but not its data when you are exploiting the vulnerabilities. 
+You can assume that you have access to the application source code, but not its data when you are exploiting the vulnerabilities.
 
 You might find vulnerabilities that are not specified. Feel free to be creative in your exploitive adventures.
 
