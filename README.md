@@ -67,3 +67,4 @@ Emphasizes how lines of text should change.
 ```diff
 - this text was removed
 + and replaced with this text
+
