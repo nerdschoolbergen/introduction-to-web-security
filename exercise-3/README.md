@@ -1,8 +1,22 @@
 # Exercise 3 - SQL Injection
 
-SQL Injection is a vulnerability that allows an attacker to change queries that an application makes to a database. This can be done by interfering with input sent from the user, which can be interpreted by the server as valid SQL. 
+SQL Injection is a vulnerability that allows an attacker to change queries that an application makes to a database. This can be done by interfering with input sent from the user, which can be interpreted by the server as valid SQL.
 
-An attacker can retrieve data they are unauthorized to see, as well as performing destructive actions such as deleting or modifying your data.  
+An attacker can retrieve data they are unauthorized to see, as well as performing destructive actions such as deleting or modifying your data.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant A as Attacker
+    participant W as Website
+    participant D as Database
+
+    A->>W: Sends malicious input containing SQL query
+    W->>D: Executes malicious SQL query from input
+    D-->>D: Data is potentialy altered or deleted by attacker
+    D->>W: Database returns data
+    W->>A: Attacker receives data
+```
 
 [Read more about SQL Injection (owasp.org)](https://www.owasp.org/index.php/SQL_Injection).
 
@@ -52,7 +66,7 @@ SELECT id FROM user WHERE username='${username}' AND password='${password}'
   SELECT id FROM user WHERE username='user';--' AND password=''
   ```
 
-  The part of the SQL statment after the `--` will be ignored, therefore the password value will be ignored, allowing the login form password to be ignored.
+  The part of the SQL statment after the `--` will be ignored, therefore the password value will be ignored, allowing the login form password to be ignored. The semicolon (`;`) denotes the end of one query and the start of another. The double hyphen (`--`) indicates that the rest of the current line is a comment and should be ignored.
 </details>
 
 :pencil2: When you are logged in, look around to see if you can find the username of other people. Try to login as someone else.

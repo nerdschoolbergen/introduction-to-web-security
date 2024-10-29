@@ -55,7 +55,7 @@ Users may pass malicious code as input to your website, which may be executed on
 
 :pencil2: :star: __Optional bonus task__
 
-Are you able to inject malicious input which extracts the authentication cookie? Use e.g. `console.log`, show it on screen, or send it to a third party. 
+Are you able to inject malicious input which extracts the authentication cookie? Use e.g. `console.log`, show it on screen, or send it to a third party.
 
 :question: What are the consequences of stealing an authentication cookie?
 
