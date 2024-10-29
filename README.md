@@ -2,7 +2,7 @@
 
 This workshop will help you understand how to think about security when building kick-ass stuff that runs on the internet.
 
-## [Open presentation slides](https://docs.google.com/presentation/d/1ZN5LGzkfIuwprCalj8lv0YZEMNkMS6-8WdrHIpWXwX0/edit?usp=sharing)
+## [Open presentation slides](https://docs.google.com/presentation/d/1N816Hg2svQbxxzO6xZRlfToicIiLaRRx9rJ7xyTHvAc/edit?usp=sharing)
 
 ## Focus of this lesson
 
