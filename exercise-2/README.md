@@ -3,6 +3,20 @@
 
 Reflected XSS (Cross-Site Scripting) is a type of web vulnerability where an attacker injects malicious code into a website's input fields, which is then reflected back to the user's browser in a way that executes the code. This can allow the attacker to steal sensitive information from the user, such as login credentials, or to perform actions on the user's behalf within the vulnerable website. Reflected XSS attacks typically rely on tricking users into clicking a malicious link or visiting a specially crafted webpage that contains the malicious code.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant A as Attacker
+    participant V as Victim
+    participant W as Website
+
+    A->>V: Sends malicious link to victim
+    V->>W: Clicks evil link containing malicious code
+    W->>V: Website reflects back malicious code from link
+    V-->V: Victim's browser executes malicious code
+    V->>A: Malicious code steals sensitive information<br/>and sends it to attacker
+```
+
 You may have functionality in your website, where your users are able to input data - whether this is in a query parameter (e.g. `mysite.com?q=123`), or as a value in an input field. In a perfect world, we could trust our users - but in real life, some are far from honest.
 
 Users may pass malicious code as input to your website, which may be executed on the server, or in the browser if the data is rendered back to the user. This exercise focuses on the latter; untrusted data being rendered back into the browser.
