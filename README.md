@@ -16,6 +16,7 @@ The purpose of this lesson is to give you a brief input into how you should thin
 ## Prerequisites
 
 - Some knowledge about web app development and basic web technologies like HTML and HTTP is helpful
+- SQL knowledge is helpful for exercises 3 and 6, but there are hints and helpful facilitators if needed
 
 ## How to get started
 
