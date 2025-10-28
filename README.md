@@ -6,7 +6,7 @@ This workshop will help you understand how to think about security when building
 
 ## Focus of this lesson
 
-The purpose of this lesson is to give you an brief input into how you should think about security when developing your own stuff. We have prepared a vulnerable web application which you will run on your own PC. Through the various exercises we will go through many of the top web security problems and demonstrate each problem in our vulnerable application.
+The purpose of this lesson is to give you a brief input into how you should think about security when developing your own stuff. We have prepared a vulnerable web application which you will run on your own PC. Through the various exercises we will go through many of the top web security problems and demonstrate each problem in our vulnerable application.
 
 ## What you need
 
@@ -28,7 +28,7 @@ The purpose of this lesson is to give you an brief input into how you should thi
 
 You can assume that you have access to the application source code, but not its data when you are exploiting the vulnerabilities.
 
-You might find vulnerabilities that are not specified. Feel free to be creative in your exploitive adventures.
+You might find vulnerabilities that are not specified. Feel free to be creative in your exploitative adventures.
 
 ## Exercises
 
