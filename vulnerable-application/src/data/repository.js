@@ -1,10 +1,20 @@
+import { existsSync } from "fs";
 import sqlite3 from "sqlite3";
+import { seedSql } from "./seed.js";
 
-const db = new sqlite3.Database('./src/data/data.sqlite', sqlite3.OPEN_READWRITE, (error) => {
+const dbPath = './src/data/data.sqlite';
+const isNewDb = !existsSync(dbPath);
+
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (error) => {
   if (error) {
     throw error;
   }
 });
+
+// Create and seed the database the first time the app starts
+if (isNewDb) {
+  db.exec(seedSql);
+}
 
 
 

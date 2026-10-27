@@ -3,9 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prestart": "node src/data/setup.js --if-missing",
     "start": "node src/index.js",
-    "predev": "node src/data/setup.js --if-missing",
     "dev": "nodemon src/index.js",
     "seed": "node src/data/setup.js"
   },

@@ -43,15 +43,14 @@ $ npm run dev
 ```
 
 <details>
-  <summary>:exclamation: Getting <code>Could not locate the bindings file</code> or <code>SQLITE_CANTOPEN</code>?</summary>
+  <summary>:exclamation: Getting <code>Could not locate the bindings file</code>?</summary>
 
-  Your npm is probably configured with `ignore-scripts=true` (you can check with `npm config get ignore-scripts`). This stops the `sqlite3` package from building its native module during `npm install`, and stops the database from being created when the app starts.
+  Your npm is probably configured with `ignore-scripts=true` (you can check with `npm config get ignore-scripts`). This stops the `sqlite3` package from building its native module during `npm install`.
 
-  Run these commands in the `vulnerable-application` folder, then start the app again with `npm run dev`:
+  Run this command in the `vulnerable-application` folder, then start the app again with `npm run dev`:
 
   ```bash
   $ npm rebuild sqlite3 --ignore-scripts=false
-  $ npm run seed
   ```
 </details>
 
