@@ -41,6 +41,17 @@ const queryOne = (sql, params) => {
   });
 };
 
+const execute = (sql) => {
+  return new Promise(function (resolve, reject) {
+    db.exec(sql, function (error) {
+      if (error)
+        reject(error);
+      else
+        resolve();
+    });
+  });
+};
+
 export const getCandidates = () => {
   return queryAll("SELECT id, name, votes FROM candidate");
 }
@@ -61,7 +72,7 @@ export const addComment = async ({ userId, comment }) => {
   }
 
   ``
-  db.exec(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
+  await execute(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
 }
 
 export const getUserIdByCredentials = async ({ username, password }) => {
@@ -78,17 +89,23 @@ export const getComments = async () => {
 }
 
 export const vote = async ({ userId, candidateId }) => {
-  db.exec(`
-    BEGIN TRANSACTION;
+  try {
+    await execute(`
+      BEGIN TRANSACTION;
 
-    UPDATE candidate
-    SET votes = votes + 1
-    WHERE id = ${candidateId};
+      UPDATE candidate
+      SET votes = votes + 1
+      WHERE id = ${candidateId};
 
-    UPDATE user
-    SET hasVoted = true
-    WHERE id = ${userId};
+      UPDATE user
+      SET hasVoted = true
+      WHERE id = ${userId};
 
-    COMMIT;
-  `);
+      COMMIT;
+    `);
+  } catch (error) {
+    // Don't leave the transaction open if one of the statements failed
+    await execute("ROLLBACK").catch(() => {});
+    throw error;
+  }
 }
