@@ -6,7 +6,12 @@ import logger from 'morgan';
 
 const app = express();
 
-app.use(logger('dev'));
+// Log the request body of form posts too, so you can see exactly what was sent to the server
+app.use(logger((tokens, req, res) => {
+  const line = logger.dev(tokens, req, res);
+  const hasBody = req.body && Object.keys(req.body).length > 0;
+  return hasBody ? `${line}\n  body: ${JSON.stringify(req.body)}` : line;
+}));
 
 app.use(session({
   secret: "SuperSecret",

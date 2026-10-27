@@ -60,6 +60,8 @@ $ npm run dev
 
 :pencil2: Test that you are able to log in via username `user` and password `user`. Log out again afterwards.
 
+:bulb: The terminal you started the app in logs every request the app receives, including the form data sent with `POST` requests (e.g. `body: {"username":"user","password":"user"}`). This is useful for seeing exactly what reached the server in the following exercises.
+
 :pencil2: To stop the application, press <kbd>CTRL</kbd>+<kbd>C</kbd> while inside the terminal window you started the application in.
 
 :book: The database is created automatically the first time you start the app. If you need to restore the state of the database to its initial state, you can run the command `npm run seed`.
