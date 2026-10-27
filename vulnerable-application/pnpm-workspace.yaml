@@ -1,0 +1,6 @@
+# Allow sqlite3 to run its install/build script under pnpm. pnpm (v10+) blocks
+# dependency build scripts by default; sqlite3 needs its script to fetch/compile
+# the native binding. npm runs these scripts automatically, so this file is only
+# needed for pnpm users.
+allowBuilds:
+  sqlite3: true
