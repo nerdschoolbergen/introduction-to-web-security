@@ -23,12 +23,13 @@ A quick reference for workshop organizers: what each exercise is about, the answ
 - **Reset the database:** `npm run seed`. It works while the app is running. Use it after comments break the voting page or when someone has already voted.
 - **Request and SQL log:** the terminal running the app logs every request, form posts show their body (`body: {"username":"user';--","password":""}`), and every SQL query is printed just before its request line (`sql: SELECT id FROM user WHERE username='user';--' AND password=''`). Ask participants to look there when a payload doesn't work; for SQL injection it shows exactly what the database received.
 - **Restarting the app logs everyone out**, because sessions are kept in memory (express-session's default [`MemoryStore`](https://github.com/expressjs/session#store)).
+- **Repo in OneDrive, Dropbox or iCloud:** cloud-synced folders can corrupt the git repository and `node_modules`. Exercise 1 warns about it; if a participant gets odd install or git errors, have them clone into a normal folder.
 - **`Could not load the sqlite3 native module`:** the participant's npm is set to `ignore-scripts=true`, or `node_modules` came from another OS. Fix: `npm rebuild sqlite3 --ignore-scripts=false`. Exercise 1 has a note about it.
 - **Single quotes in comments show an SQL error.** The comment is inserted with string-built SQL, so `'` ends the [string literal](https://www.sqlite.org/lang_expr.html#literal_values_constants_) early and breaks the query. Tell participants to use double quotes (`alert("x")`). It's also a nice hint that the comment field is SQL-injectable.
 
 ## Exercise 1 – Up and running
 
-Install and start the app, log in as `user` / `user`. Nothing to solve. Make sure everyone gets here before moving on.
+Check Node.js and npm (`node -v`, `npm -v`), install and start the app, log in as `user` / `user`. Nothing to solve. Make sure everyone gets here before moving on.
 
 ## Exercise 2 – Reflected XSS
 
@@ -62,7 +63,8 @@ Install and start the app, log in as `user` / `user`. Nothing to solve. Make sur
 
 - **6.1 – extract the schema:** log in with the username `' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--`. [`UNION ALL`](https://www.sqlite.org/lang_select.html#compound_select_statements) appends the injected query's rows to the login query's, [`sqlite_schema`](https://www.sqlite.org/schematab.html) holds the `CREATE` statement of every table, and [`GROUP_CONCAT`](https://www.sqlite.org/lang_aggfunc.html#group_concat) joins them into one value. The login query now returns the table definitions as the user "id", which the app stores in the session and writes into the hidden `userId` field. View the voting page source to see it.
 - **6.2 – get the passwords:** same idea with `' UNION ALL SELECT GROUP_CONCAT(username || ':' || password) as id FROM user--`, where [`||`](https://www.sqlite.org/lang_expr.html#operators_and_parse_affecting_attributes) joins strings. The passwords are stored in plain text.
-- **Gotcha:** the injected `SELECT` must return a single column named `id`: a [compound select](https://www.sqlite.org/lang_select.html#compound_select_statements) needs the same number of columns on both sides, and the app reads `result.id`. Hints 2–6 in the exercise walk through this.
+- **Gotcha:** the injected `SELECT` must return a single column named `id`: a [compound select](https://www.sqlite.org/lang_select.html#compound_select_statements) needs the same number of columns on both sides, and the app reads `result.id`. Hints 2–6 in the exercise walk through this, and the exercise has solutions for both tasks.
+- **Gotcha:** participants sometimes paste the whole SQL query from the solution as the username, which nests the query inside itself. The `sql:` line in the terminal shows what the database actually received; only the part starting with `'` should be typed.
 - **Discussion:** one injectable query can leak the whole database. Plain-text passwords make it far worse; they should be hashed (bcrypt, scrypt, Argon2).
 
 ## Exercise 7 – Bonus exercises
