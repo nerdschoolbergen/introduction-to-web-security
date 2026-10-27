@@ -73,6 +73,8 @@ The login form is still vulnerable. Focus on the username field. A single quote 
   SELECT id FROM user WHERE username='' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--' AND password=''
   ```
 
+  :bulb: You can see this query in the terminal where the app is running: every query is logged on a line starting with `sql:`, just before the `POST /login` line.
+
   - No user has an empty username, so the first `SELECT` returns no rows.
   - The second `SELECT` returns one row: the `CREATE` statements of all tables, joined into one string and named `id`.
   - `--` comments out the password check.
