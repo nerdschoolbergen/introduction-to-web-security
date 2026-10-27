@@ -24,7 +24,7 @@ A quick reference for workshop organizers: what each exercise is about, the answ
 - **Request and SQL log:** the terminal running the app logs every request, form posts show their body (`body: {"username":"user';--","password":""}`), and every SQL query is printed just before its request line (`sql: SELECT id FROM user WHERE username='user';--' AND password=''`). Ask participants to look there when a payload doesn't work; for SQL injection it shows exactly what the database received.
 - **Restarting the app logs everyone out**, because sessions are kept in memory.
 - **`Could not load the sqlite3 native module`:** the participant's npm is set to `ignore-scripts=true`, or `node_modules` came from another OS. Fix: `npm rebuild sqlite3 --ignore-scripts=false`. Exercise 1 has a note about it.
-- **Single quotes in comments show an SQL error.** The comment is inserted with string-built SQL, so `'` breaks the query. Tell participants to use double quotes (`alert("x")`). It's also a nice hint that the comment field is SQL-injectable.
+- **Single quotes in comments show an SQL error.** The comment is inserted with string-built SQL, so `'` ends the [string literal](https://www.sqlite.org/lang_expr.html#literal_values_constants_) early and breaks the query. Tell participants to use double quotes (`alert("x")`). It's also a nice hint that the comment field is SQL-injectable.
 
 ## Exercise 1 – Up and running
 
@@ -40,9 +40,9 @@ Install and start the app, log in as `user` / `user`. Nothing to solve. Make sur
 ## Exercise 3 – SQL injection
 
 - **Where:** the login query is built with string interpolation: ``SELECT id FROM user WHERE username='${username}' AND password='${password}'``.
-- **3.1 – log in without a password:** username `user';--`, any or no password. The `--` comments out the password check.
+- **3.1 – log in without a password:** username `user';--`, any or no password. The `--` starts an [SQL comment](https://www.sqlite.org/lang_comment.html), which removes the password check. The `;` ends the statement, and SQLite [only compiles the first statement](https://www.sqlite.org/c3ref/prepare.html) in a query string.
 - **3.2 – log in as someone else:** usernames are in the comments (`zeratul`, `sarah_kerrigan`) and in the page source: a commented-out `<a href="/internal">User admin</a>` link in the nav, visible when logged in. `/internal` lists all users. Then log in with e.g. `zeratul';--`.
-- **Discussion:** the database can't tell data from code when queries are glued together from strings. Fix: parameterized queries (`queryOne(sql, params)` in `repository.js` already supports them).
+- **Discussion:** the database can't tell data from code when queries are glued together from strings. Fix: [parameterized queries](https://www.sqlite.org/lang_expr.html#parameters) (`queryOne(sql, params)` in `repository.js` already supports them).
 
 ## Exercise 4 – Persisted XSS
 
@@ -60,9 +60,9 @@ Install and start the app, log in as `user` / `user`. Nothing to solve. Make sur
 
 ## Exercise 6 – SQL injection continued
 
-- **6.1 – extract the schema:** log in with the username `' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--`. The login query now returns the table definitions as the user "id", which the app stores in the session and writes into the hidden `userId` field. View the voting page source to see it.
-- **6.2 – get the passwords:** same idea with `' UNION ALL SELECT GROUP_CONCAT(username || ':' || password) as id FROM user--`. The passwords are stored in plain text.
-- **Gotcha:** the injected `SELECT` must return a single column named `id`, because the app reads `result.id`. Hints 2–6 in the exercise walk through this.
+- **6.1 – extract the schema:** log in with the username `' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--`. [`UNION ALL`](https://www.sqlite.org/lang_select.html#compound_select_statements) appends the injected query's rows to the login query's, [`sqlite_schema`](https://www.sqlite.org/schematab.html) holds the `CREATE` statement of every table, and [`GROUP_CONCAT`](https://www.sqlite.org/lang_aggfunc.html#group_concat) joins them into one value. The login query now returns the table definitions as the user "id", which the app stores in the session and writes into the hidden `userId` field. View the voting page source to see it.
+- **6.2 – get the passwords:** same idea with `' UNION ALL SELECT GROUP_CONCAT(username || ':' || password) as id FROM user--`, where [`||`](https://www.sqlite.org/lang_expr.html#operators_and_parse_affecting_attributes) joins strings. The passwords are stored in plain text.
+- **Gotcha:** the injected `SELECT` must return a single column named `id`: a [compound select](https://www.sqlite.org/lang_select.html#compound_select_statements) needs the same number of columns on both sides, and the app reads `result.id`. Hints 2–6 in the exercise walk through this.
 - **Discussion:** one injectable query can leak the whole database. Plain-text passwords make it far worse; they should be hashed (bcrypt, scrypt, Argon2).
 
 ## Exercise 7 – Bonus exercises
@@ -134,7 +134,7 @@ index 50898f9..907a09e 100644
 
 ### 3. SQL injection (exercises 3 and 6)
 
-Use parameterized queries (`?` placeholders) everywhere, so input is always treated as data. `db.exec` doesn't support parameters, so the vote now runs its two updates with a new `run` helper inside the transaction.
+Use [parameterized queries](https://www.sqlite.org/lang_expr.html#parameters) (`?` placeholders) everywhere, so input is always treated as data. `db.exec` doesn't support parameters, so the vote now runs its two updates with a new `run` helper inside the [transaction](https://www.sqlite.org/lang_transaction.html).
 
 ```diff
 diff --git a/vulnerable-application/src/data/repository.js b/vulnerable-application/src/data/repository.js
