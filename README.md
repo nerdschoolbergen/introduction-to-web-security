@@ -4,8 +4,6 @@ This workshop will help you understand how to think about security when building
 
 ## [Open presentation slides](https://docs.google.com/presentation/d/1ls5yGfBNASjmH8vvY8PJ5jOJWXxXzYb-yqiOj5hpiQU/edit?usp=sharing)
 
-Organizing the workshop? See the [organizer cheatsheet](ORGANIZERS.md) for the main points and answers of each exercise.
-
 ## Focus of this lesson
 
 The purpose of this lesson is to give you a brief input into how you should think about security when developing your own stuff. We have prepared a vulnerable web application which you will run on your own PC. Through the various exercises we will go through many of the top web security problems and demonstrate each problem in our vulnerable application.
