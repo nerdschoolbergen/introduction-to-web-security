@@ -27,7 +27,7 @@ Users may pass malicious code as input to your website, which may be executed on
 
 :pencil2: When trying to log in, try to see if you can produce an error. Do you see anything unusual about how the error message is presented?
 
-:question: What are the consequences of having a reflected XSS vulnerability in our app? What happens if you send a where you have crafted a "special" query to a friend ( ..or enemy)?
+:question: What are the consequences of having a reflected XSS vulnerability in our app? What happens if you send a link where you have crafted a "special" query to a friend ( ..or enemy)?
 
 ---
 
