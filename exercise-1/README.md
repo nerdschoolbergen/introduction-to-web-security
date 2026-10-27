@@ -11,7 +11,7 @@ You will learn to:
 
 - :pencil2: Start by git cloning this repository into a folder on your computer if you haven't done so already. If you've never used git before, you can alternatively use the "Download ZIP" button on the GitHub.com repo homepage (see [GitHub docs](https://docs.github.com/en/repositories/working-with-files/using-files/downloading-files-from-github#downloading-a-repositorys-files) for instructions)
 - :exclamation: Make sure you remember where you cloned/downloaded the repository on your computer.
-- :exclamation: Do not store copies of git repositories inside cloud file storage like OneDrive, Dropbox, iCloud or similar. This can cause corruption of the local git repository and conflicts. Create a separate folder on your computer for git repositores if needed.
+- :exclamation: Do not store copies of git repositories inside cloud file storage like OneDrive, Dropbox, iCloud or similar. This can cause corruption of the local git repository and conflicts. Create a separate folder on your computer for git repositories if needed.
 - :book: Although you have this `README.md` file on your computer, it's easier to read it on GitHub with formatting. We therefore recommend you keep a web browser tab open with the exercise tasks on GitHub.com.
 
 ## 1.1 Installing software
@@ -42,7 +42,7 @@ This should print the npm version number.
 
 :pencil2: [Install Google Chrome if you don't have it](https://www.google.com/chrome/browser/desktop/)
 
-:exclamation: If you skip this step, some of the exercises will not make sense, as we are going to use the Dev Tools Extension that comes with Chrome.
+:exclamation: If you skip this step, some of the exercises will not make sense, as we are going to use Chrome DevTools, which is built into Chrome.
 
 ## 1.2 Local development environment setup
 
