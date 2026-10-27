@@ -14,8 +14,12 @@ Suggestions:
 
 ## 7.2 - Fix vulnerabilities
 
-:pencil2: Open the application and try to fix the vulnerabilties that we have uncovered during the exercises.
+:pencil2: Open the application and try to fix the vulnerabilities that we have uncovered during the exercises.
 
 :book: Prepared statements in the `sqlite3` library: <https://github.com/TryGhost/node-sqlite3/wiki/API#preparesql--param---callback>
 
-:book: Example of santizing input in Express.js: <https://express-validator.github.io/docs/guides/getting-started/#sanitizing-inputs>
+:book: Example of sanitizing input in Express.js: <https://express-validator.github.io/docs/guides/getting-started/#sanitizing-inputs>
+
+___
+
+### [Go to exercise 8 :arrow_right:](../exercise-8/README.md)
