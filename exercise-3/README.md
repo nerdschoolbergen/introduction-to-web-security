@@ -18,7 +18,7 @@ sequenceDiagram
     W->>A: Attacker receives data
 ```
 
-[Read more about SQL Injection (owasp.org)](https://www.owasp.org/index.php/SQL_Injection).
+[Read more about SQL Injection (owasp.org)](https://community.owasp.org/attacks/SQL_Injection).
 
 ![Bobby Tables](../images/bobby_tables.png)
 
