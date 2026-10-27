@@ -78,7 +78,7 @@ $ npm run dev
 
 :pencil2: Test that you are able to log in via username `user` and password `user`. Log out again afterwards.
 
-:bulb: The terminal you started the app in logs every request the app receives, including the form data sent with `POST` requests (e.g. `body: {"username":"user","password":"user"}`). This is useful for seeing exactly what reached the server in the following exercises.
+:bulb: The terminal you started the app in logs every request the app receives, including the form data sent with `POST` requests (e.g. `body: {"username":"user","password":"user"}`), and every SQL query the app runs, printed just before the request it belongs to (e.g. `sql: SELECT id FROM user WHERE username='user' AND password='user'`). This is useful for seeing exactly what reached the server and the database in the following exercises.
 
 :pencil2: To stop the application, press <kbd>CTRL</kbd>+<kbd>C</kbd> while inside the terminal window you started the application in.
 

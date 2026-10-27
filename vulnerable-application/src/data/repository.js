@@ -16,9 +16,14 @@ if (isNewDb) {
   db.exec(seedSql);
 }
 
-
+// Log every query the app sends to the database (whitespace collapsed to keep it on one line)
+const logQuery = (sql, params) => {
+  const query = sql.replace(/\s+/g, " ").trim();
+  console.log(params?.length ? `sql: ${query}  params: ${JSON.stringify(params)}` : `sql: ${query}`);
+};
 
 const queryAll = (sql, params) => {
+  logQuery(sql, params);
   return new Promise(function (resolve, reject) {
     db.all(sql, params, function (error, rows) {
       if (error)
@@ -31,6 +36,7 @@ const queryAll = (sql, params) => {
 
 
 const queryOne = (sql, params) => {
+  logQuery(sql, params);
   return new Promise(function (resolve, reject) {
     db.get(sql, params, function (error, result) {
       if (error)
@@ -42,6 +48,7 @@ const queryOne = (sql, params) => {
 };
 
 const execute = (sql) => {
+  logQuery(sql);
   return new Promise(function (resolve, reject) {
     db.exec(sql, function (error) {
       if (error)
