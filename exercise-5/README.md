@@ -46,16 +46,17 @@ sequenceDiagram
 
 ## 5.2 - How to rig an election
 
-:pencil2: Try to exploit the comment field by submitting a persistent XSS attack that forces the all users to vote for the candidate Eleanor Wheeler.
+:pencil2: Try to exploit the comment field by submitting a persistent XSS attack that forces all users to vote for the candidate Eleanor Wheeler.
 
 <details>
   <summary>Hints</summary>
 
   - See if you can inject a script tag into the page
-
-  - Take a look at the following JavaScript syntax and browser APIs:
-    - [`document.getElementsByName`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByName)
-    - [`for...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
+  - Look at the vote forms in the Elements tab: each one has a hidden `candidateId` field that decides who gets the vote
+  - Take a look at the following browser APIs:
+    - [`document.getElementsByName()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByName)
+    - [`NodeList.forEach()`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach)
+    - [The `value` property of an input field](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/value)
   - Experiment with using the Dev Tools Console if you want to
 </details>
 
