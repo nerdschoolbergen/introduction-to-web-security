@@ -1,4 +1,7 @@
+import { existsSync } from "fs";
 import sqlite3 from "sqlite3";
+
+const dbPath = "./src/data/data.sqlite";
 
 const sql = `
   drop table if exists candidate;
@@ -42,7 +45,7 @@ const sql = `
 `;
 
 const setupDb = () => {
-  const db = new sqlite3.Database("./src/data/data.sqlite", sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (error) => {
+  const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (error) => {
     if (error) {
       console.log(error);
     }
@@ -50,4 +53,7 @@ const setupDb = () => {
   db.exec(sql);
 }
 
-setupDb();
+// With --if-missing, only seed when no database exists yet (used before start/dev)
+if (!(process.argv.includes("--if-missing") && existsSync(dbPath))) {
+  setupDb();
+}

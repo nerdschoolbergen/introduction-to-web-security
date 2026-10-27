@@ -50,7 +50,7 @@ $ npm run dev
 
 :pencil2: To stop the application, press <kbd>CTRL</kbd>+<kbd>C</kbd> while inside the terminal window you started the application in.
 
-:book: If you need to restore the state of the database to its initial state, you can run the command `npm run seed`.
+:book: The database is created automatically the first time you start the app. If you need to restore the state of the database to its initial state, you can run the command `npm run seed`.
 ___
 
 Now that we're all set-up, let's try to hack the app!
