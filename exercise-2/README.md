@@ -33,11 +33,13 @@ Users may pass malicious code as input to your website, which may be executed on
 
 <details>
     <summary>Hint 1</summary>
+
     Look at the URL query parameter. What happens if you try changing the query parameter?
 </details>
 
 <details>
     <summary>Hint 2</summary>
+
     Try to pass something that is evaluated by the browser as the query parameter.
 </details>
 

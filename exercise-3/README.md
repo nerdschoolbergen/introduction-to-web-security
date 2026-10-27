@@ -74,11 +74,13 @@ SELECT id FROM user WHERE username='${username}' AND password='${password}'
 
 <details>
   <summary>Hint 1 for 3.2</summary>
+
   Look in the comment section. Some usernames are present here.
 </details>
 
 <details>
     <summary>Hint 2 for 3.2</summary>
+
     Look in the voting page source code (right click anywhere on the page and select "View page source"). Something is commented out.
 </details>
 
