@@ -32,7 +32,7 @@ Go to the login page (log out if you are logged in). This page has a serious sql
 <details>
   <summary>Hint 1 for 3.1</summary>
 
-  The underlying database is a [Sqlite](https://www.sqlite.org/) database. Have a look at the `getUserIdByCredentials` function defined in in `src/data/repository.js`. 
+  The underlying database is a [Sqlite](https://www.sqlite.org/) database. Have a look at the `getUserIdByCredentials` function defined in `src/data/repository.js`. 
   The code for querying the database for the correct user to login looks like this:
 
   ```js
