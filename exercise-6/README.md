@@ -10,7 +10,7 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 ' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--
 ```
 
-:book: The username uses [`UNION ALL`](https://www.sqlite.org/lang_select.html#compound_select_statements), the [`GROUP_CONCAT`](https://www.sqlite.org/lang_aggfunc.html#group_concat) function and the [`sqlite_schema`](https://www.sqlite.org/schematab.html) table. Look them up if you're not familiar with them. For a gentler introduction with examples, see [SQLite UNION vs UNION ALL](https://dbschema.com/blog/sqlite/union/).
+:book: The username uses [`UNION ALL`](https://www.sqlite.org/lang_select.html#compound_select_statements), the [`GROUP_CONCAT`](https://www.sqlite.org/lang_aggfunc.html#group_concat) function and the [`sqlite_schema`](https://www.sqlite.org/schematab.html) table. Look them up if you're not familiar with them. For a gentler introduction with examples, see [SQLite UNION vs UNION ALL](https://dbschema.com/blog/sqlite/union/), [what the `sqlite_schema` table contains](https://dbschema.com/blog/sqlite/reverse-engineering-a-sqlite-database/#what-sqlite-records-about-its-own-schema-) and [how `GROUP_CONCAT` joins values](https://dbschema.com/blog/sqlite/functions/#implementing-functions-in-sqlite3-).
 
 :pencil2: Inspect the source of the voting page. Do you see anything questionable?
 
@@ -44,8 +44,6 @@ The login form is still vulnerable. Focus on the username field. A single quote 
 <details>
   <summary>Hint 4</summary>
   SQLite exposes table creation statements in [`sqlite_schema`](https://www.sqlite.org/schematab.html) (older: `sqlite_master`). Use [`GROUP_CONCAT(sql)`](https://www.sqlite.org/lang_aggfunc.html#group_concat) to merge rows into one string so it fits a single-column UNION.
-
-  More examples: [what the `sqlite_schema` table contains](https://dbschema.com/blog/sqlite/reverse-engineering-a-sqlite-database/#what-sqlite-records-about-its-own-schema-) and [how `GROUP_CONCAT` joins values](https://dbschema.com/blog/sqlite/functions/#implementing-functions-in-sqlite3-).
 </details>
 
 <details>
