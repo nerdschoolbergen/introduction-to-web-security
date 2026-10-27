@@ -2,8 +2,3 @@ bin
 *.sqlite
 *.sqlite-journal
 node_modules
-
-# npm's package-lock.json is the canonical lockfile for this repo.
-# pnpm users can still install (pnpm-workspace.yaml allows the sqlite3 build),
-# but we don't track a second lockfile to avoid drift.
-pnpm-lock.yaml
