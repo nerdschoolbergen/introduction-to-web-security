@@ -21,7 +21,7 @@ A quick reference for workshop organizers: what each exercise is about, the answ
 ## Handy during the workshop
 
 - **Reset the database:** `npm run seed`. It works while the app is running. Use it after comments break the voting page or when someone has already voted.
-- **Request log:** the terminal running the app logs every request, and form posts show their body (`body: {"username":"user';--","password":""}`). Ask participants to look there when a payload doesn't work.
+- **Request and SQL log:** the terminal running the app logs every request, form posts show their body (`body: {"username":"user';--","password":""}`), and every SQL query is printed just before its request line (`sql: SELECT id FROM user WHERE username='user';--' AND password=''`). Ask participants to look there when a payload doesn't work; for SQL injection it shows exactly what the database received.
 - **Restarting the app logs everyone out**, because sessions are kept in memory.
 - **`Could not load the sqlite3 native module`:** the participant's npm is set to `ignore-scripts=true`, or `node_modules` came from another OS. Fix: `npm rebuild sqlite3 --ignore-scripts=false`. Exercise 1 has a note about it.
 - **Single quotes in comments show an SQL error.** The comment is inserted with string-built SQL, so `'` breaks the query. Tell participants to use double quotes (`alert("x")`). It's also a nice hint that the comment field is SQL-injectable.
@@ -138,14 +138,15 @@ Use parameterized queries (`?` placeholders) everywhere, so input is always trea
 
 ```diff
 diff --git a/vulnerable-application/src/data/repository.js b/vulnerable-application/src/data/repository.js
-index 1ecd42a..8a1e9d0 100644
+index 85d2e8c..485a200 100644
 --- a/vulnerable-application/src/data/repository.js
 +++ b/vulnerable-application/src/data/repository.js
-@@ -41,6 +41,17 @@ const queryOne = (sql, params) => {
+@@ -47,6 +47,18 @@ const queryOne = (sql, params) => {
    });
  };
  
 +const run = (sql, params) => {
++  logQuery(sql, params);
 +  return new Promise(function (resolve, reject) {
 +    db.run(sql, params, function (error) {
 +      if (error)
@@ -157,9 +158,9 @@ index 1ecd42a..8a1e9d0 100644
 +};
 +
  const execute = (sql) => {
+   logQuery(sql);
    return new Promise(function (resolve, reject) {
-     db.exec(sql, function (error) {
-@@ -58,7 +69,7 @@ export const getCandidates = () => {
+@@ -65,7 +77,7 @@ export const getCandidates = () => {
  
  export const getHasUserVoted = async (userId) => {
    try {
@@ -168,7 +169,7 @@ index 1ecd42a..8a1e9d0 100644
      return user?.hasVoted === 1;
    } catch {
      return false;
-@@ -66,17 +77,17 @@ export const getHasUserVoted = async (userId) => {
+@@ -73,17 +85,17 @@ export const getHasUserVoted = async (userId) => {
  }
  
  export const addComment = async ({ userId, comment }) => {
@@ -189,7 +190,7 @@ index 1ecd42a..8a1e9d0 100644
    return result?.id;
  }
  
-@@ -90,19 +101,10 @@ export const getComments = async () => {
+@@ -97,19 +109,10 @@ export const getComments = async () => {
  
  export const vote = async ({ userId, candidateId }) => {
    try {
@@ -215,7 +216,7 @@ index 1ecd42a..8a1e9d0 100644
      await execute("ROLLBACK").catch(() => {});
 ```
 
-**Blocks:** `user';--`, `zeratul';--` and the `UNION` payloads just fail to log in. Comments containing `'` are now saved instead of causing an SQL error.
+**Blocks:** `user';--`, `zeratul';--` and the `UNION` payloads just fail to log in. Comments containing `'` are now saved instead of causing an SQL error. The SQL log shows the difference: the input now appears as data in `params: ["user';--",""]` instead of inside the query.
 
 ### 4. Parameter tampering (exercise 5.1)
 
