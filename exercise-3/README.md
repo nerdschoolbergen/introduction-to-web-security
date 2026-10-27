@@ -18,7 +18,7 @@ sequenceDiagram
     W->>A: Attacker receives data
 ```
 
-[Read more about SQL Injection (owasp.org)](https://www.owasp.org/index.php/SQL_Injection).
+[Read more about SQL Injection (owasp.org)](https://community.owasp.org/attacks/SQL_Injection).
 
 ![Bobby Tables](../images/bobby_tables.png)
 
@@ -29,24 +29,17 @@ Go to the login page (log out if you are logged in). This page has a serious sql
 
 :pencil2: Try to find the SQL injection vulnerability and log in with the `user` account without providing a password. 
 
-## 3.2 Exploiting further, different user
-
-:pencil2: When you are logged in, look around to see if you can find the username of other people. Try to login as someone else.
-
-# Hint
-
 <details>
   <summary>Hint 1 for 3.1</summary>
 
-  The underlying database is a Sqlite database.
-  The code for querying the database for the correct user to login looks like this
+  The underlying database is a [Sqlite](https://www.sqlite.org/) database. Have a look at the `getUserIdByCredentials` function defined in `src/data/repository.js`. 
+  The code for querying the database for the correct user to login looks like this:
 
   ```js
 SELECT id FROM user WHERE username='${username}' AND password='${password}'
   ```
 
-  See anything suspicious?
-
+  See anything suspicious? If you are unfamiliar with SQL, see [sqlzoo.net SQL tutorials](https://sqlzoo.net/wiki/SQL_Tutorial).
 </details>
 
 <details>
@@ -75,6 +68,10 @@ SELECT id FROM user WHERE username='${username}' AND password='${password}'
   The part of the SQL statment after the `--` will be ignored (commented out), therefore the password value will be ignored, allowing the login form password to be ignored. The semicolon (`;`) denotes the end of one query and the start of another. The double hyphen (`--`) indicates that the rest of the current line is a comment and should be ignored.
 </details>
 
+## 3.2 Exploiting further, different user
+
+:pencil2: When you are logged in, look around to see if you can find the username of other people. Try to login as someone else.
+
 <details>
   <summary>Hint 1 for 3.2</summary>
   Look in the comment section. Some usernames are present here.
@@ -85,4 +82,4 @@ SELECT id FROM user WHERE username='${username}' AND password='${password}'
     Look in the voting page source code (right click anywhere on the page and select "View page source"). Something is commented out.
 </details>
 
-### [Go to exercise 5 :arrow_right:](../exercise-5/README.md)
+### [Go to exercise 4 :arrow_right:](../exercise-4/README.md)

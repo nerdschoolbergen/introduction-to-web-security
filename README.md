@@ -2,7 +2,9 @@
 
 This workshop will help you understand how to think about security when building kick-ass stuff that runs on the internet.
 
-## [Open presentation slides](https://docs.google.com/presentation/d/1sr57tc-S3MWGlVrOaFHb-B6xvlHeeF9-Ijt2GEw6N24/edit?usp=sharing)
+## [Open presentation slides](https://docs.google.com/presentation/d/1ls5yGfBNASjmH8vvY8PJ5jOJWXxXzYb-yqiOj5hpiQU/edit?usp=sharing)
+
+Organizing the workshop? See the [organizer cheatsheet](ORGANIZERS.md) for the main points and answers of each exercise.
 
 ## Focus of this lesson
 
@@ -22,6 +24,7 @@ The purpose of this lesson is to give you a brief input into how you should thin
 
 - Start by cloning this repository into a folder on your computer. If you've never used git before, you can alternatively use the "Download ZIP" button to the right.
 - Although you have this README file on your computer it's easier to read it on GitHub, so we recommend you keep this page open with the exercise tasks.
+- Don't want to install anything locally? You can run the workshop in the browser using [GitHub Codespaces](codespaces.md).
 
 ## About the vulnerable application
 
@@ -42,6 +45,7 @@ This repository contains a set of exercises organized in folders. Each folder co
 - [Exercise 5](exercise-5/) - Parameter tampering with XSS
 - [Exercise 6](exercise-6/) - Injection - SQL Injection continued
 - [Exercise 7](exercise-7/) - Bonus exercises
+- [Exercise 8](exercise-8/) - Broken authentication & session management (beta bonus)
 
 ### Symbols and notation used in exercises
 

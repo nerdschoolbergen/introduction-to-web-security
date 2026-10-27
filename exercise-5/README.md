@@ -37,12 +37,28 @@ sequenceDiagram
 <details>
   <summary>Solution</summary>
 
-  Open Chrome Dev Tools and use the Elements tab to edit the userId input field in the comment form.
+  Open Chrome Dev Tools and use the Elements tab to edit the userId input field in the comment form. Find an input tag that looks like this:
+```html
+<input type="hidden" name="userId" value="3">
+```
+  Double click on the value (in this case the number `3`) and change it to another user's id.
 </details>
 
 ## 5.2 - How to rig an election
 
-:pencil2: Try to exploit the comment field by submitting a persistent XSS attack that forces the all users to vote for the candidate Eleanor Wheeler.
+:pencil2: Try to exploit the comment field by submitting a persistent XSS attack that forces all users to vote for the candidate Eleanor Wheeler.
+
+<details>
+  <summary>Hints</summary>
+
+  - See if you can inject a script tag into the page
+  - Look at the vote forms in the Elements tab: each one has a hidden `candidateId` field that decides who gets the vote
+  - Take a look at the following browser APIs:
+    - [`document.getElementsByName()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByName)
+    - [`NodeList.forEach()`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach)
+    - [The `value` property of an input field](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/value)
+  - Experiment with using the Dev Tools Console if you want to
+</details>
 
 <details>
   <summary>Solution</summary>
@@ -50,10 +66,10 @@ sequenceDiagram
   Submit the following markup as a comment:
 
   ```html
-<script>window.addEventListener("DOMContentLoaded", (event) => {
-  for(el of document.getElementsByName("candidateId")) { el.setAttribute("value", "2") }
-});</script>
+<script>document.getElementsByName("candidateId").forEach(el => el.value = 2)</script>
   ```
+
+  The comments come after the voting buttons on the page, so when the script runs, it can change every hidden `candidateId` field to `2` (Eleanor Wheeler) straight away. Whatever candidate the user votes for, the vote goes to her.
 
 </details>
 

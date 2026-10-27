@@ -1,3 +1,4 @@
 bin
 *.sqlite
+*.sqlite-journal
 node_modules

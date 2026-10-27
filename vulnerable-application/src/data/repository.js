@@ -1,14 +1,29 @@
-import sqlite3 from "sqlite3";
+import { existsSync } from "fs";
+import sqlite3 from "./sqlite.js";
+import { seedSql } from "./seed.js";
 
-const db = new sqlite3.Database('./src/data/data.sqlite', sqlite3.OPEN_READWRITE, (error) => {
+const dbPath = './src/data/data.sqlite';
+const isNewDb = !existsSync(dbPath);
+
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (error) => {
   if (error) {
     throw error;
   }
 });
 
+// Create and seed the database the first time the app starts
+if (isNewDb) {
+  db.exec(seedSql);
+}
 
+// Log every query the app sends to the database (whitespace collapsed to keep it on one line)
+const logQuery = (sql, params) => {
+  const query = sql.replace(/\s+/g, " ").trim();
+  console.log(params?.length ? `sql: ${query}  params: ${JSON.stringify(params)}` : `sql: ${query}`);
+};
 
 const queryAll = (sql, params) => {
+  logQuery(sql, params);
   return new Promise(function (resolve, reject) {
     db.all(sql, params, function (error, rows) {
       if (error)
@@ -21,12 +36,25 @@ const queryAll = (sql, params) => {
 
 
 const queryOne = (sql, params) => {
+  logQuery(sql, params);
   return new Promise(function (resolve, reject) {
     db.get(sql, params, function (error, result) {
       if (error)
         reject(error);
       else
         resolve(result);
+    });
+  });
+};
+
+const execute = (sql) => {
+  logQuery(sql);
+  return new Promise(function (resolve, reject) {
+    db.exec(sql, function (error) {
+      if (error)
+        reject(error);
+      else
+        resolve();
     });
   });
 };
@@ -51,7 +79,7 @@ export const addComment = async ({ userId, comment }) => {
   }
 
   ``
-  db.exec(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
+  await execute(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
 }
 
 export const getUserIdByCredentials = async ({ username, password }) => {
@@ -68,17 +96,23 @@ export const getComments = async () => {
 }
 
 export const vote = async ({ userId, candidateId }) => {
-  db.exec(`
-    BEGIN TRANSACTION;
+  try {
+    await execute(`
+      BEGIN TRANSACTION;
 
-    UPDATE candidate
-    SET votes = votes + 1
-    WHERE id = ${candidateId};
+      UPDATE candidate
+      SET votes = votes + 1
+      WHERE id = ${candidateId};
 
-    UPDATE user
-    SET hasVoted = true
-    WHERE id = ${userId};
+      UPDATE user
+      SET hasVoted = true
+      WHERE id = ${userId};
 
-    COMMIT;
-  `);
+      COMMIT;
+    `);
+  } catch (error) {
+    // Don't leave the transaction open if one of the statements failed
+    await execute("ROLLBACK").catch(() => {});
+    throw error;
+  }
 }

@@ -1,6 +1,6 @@
 # Exercise 8 BETA - Broken Authentication & Session Management
 
-:construction: This is a (new) beta bonus excercise, only if time allows
+:construction: This is a (new) beta bonus exercise, only if time allows
 
 In this exercise, you will explore how weak session handling can compromise user accounts.
 

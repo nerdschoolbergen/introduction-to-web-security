@@ -18,8 +18,6 @@ When a personal account has used all of either the included storage or compute u
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=130809732)
 
-**TODO: Replace URL above with final URL before merging branch!**
-
 2. Click **Create codespace** and wait a minute while the codespace is being set up.
 
 3. A web-based VSCode window will open up, allowing you to remotely access your codespace. 

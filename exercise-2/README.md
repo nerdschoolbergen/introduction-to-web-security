@@ -21,7 +21,7 @@ You may have functionality in your website, where your users are able to input d
 
 Users may pass malicious code as input to your website, which may be executed on the server, or in the browser if the data is rendered back to the user. This exercise focuses on the latter; untrusted data being rendered back into the browser.
 
-[Read more about XSS (owasp.org)](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)).
+[Read more about XSS (owasp.org)](https://community.owasp.org/attacks/xss/).
 
 ---
 

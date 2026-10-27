@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    name: Build and run with npm
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vulnerable-application
+
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v7
+      -
+        name: Set up Node.js (latest LTS)
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: vulnerable-application/package-lock.json
+      -
+        name: Install dependencies
+        # Fails if a dependency's install script isn't approved in allowScripts
+        run: npm ci --strict-allow-scripts
+      -
+        name: Start app
+        run: |
+          npm start > app.log 2>&1 &
+          curl --silent --fail --retry 30 --retry-delay 1 --retry-connrefused --output /dev/null http://localhost:3000/
+      -
+        name: Smoke test
+        run: |
+          redirect=$(curl --silent --output /dev/null --write-out '%{redirect_url}' --data 'username=user&password=user' http://localhost:3000/login)
+          echo "Login redirected to: $redirect"
+          test "$redirect" = "http://localhost:3000/voting"
+      -
+        name: App log
+        if: always()
+        run: cat app.log
+
