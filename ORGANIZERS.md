@@ -15,14 +15,14 @@ A quick reference for workshop organizers: what each exercise is about, the answ
 | Users (username / password) | `jim_raynor` / `terran_rox` (id 1), `sarah_kerrigan` / `zergs_r0ckz!` (id 2), `zeratul` / `hunter3` (id 3), `user` / `user` (id 4) |
 | Candidates | 1 Isabel Evans, 2 Eleanor Wheeler, 3 Charlie McCarthy, 4 Michael Gardner |
 | Pages | `/` login, `/voting` vote and comments, `/error?message=…` error page, `/internal` user list (hidden link), `/logout` |
-| Code | Routes in `src/index.js`, SQL in `src/data/repository.js`, views in `src/views/` |
-| Session cookie | `session-cookie`, no `HttpOnly`, `Secure` or `SameSite` flag, signed with the hard-coded secret `"SuperSecret"` |
+| Code | Routes in `src/index.js` ([Express](https://expressjs.com/en/guide/routing/)), SQL in `src/data/repository.js`, views in `src/views/` ([express-handlebars](https://github.com/express-handlebars/express-handlebars)) |
+| Session cookie | `session-cookie` ([express-session](https://github.com/expressjs/session)), no [`HttpOnly`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#httponly), [`Secure`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#secure) or [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#samesitesamesite-value) flag, signed with the hard-coded [secret](https://github.com/expressjs/session#secret) `"SuperSecret"` |
 
 ## Handy during the workshop
 
 - **Reset the database:** `npm run seed`. It works while the app is running. Use it after comments break the voting page or when someone has already voted.
 - **Request and SQL log:** the terminal running the app logs every request, form posts show their body (`body: {"username":"user';--","password":""}`), and every SQL query is printed just before its request line (`sql: SELECT id FROM user WHERE username='user';--' AND password=''`). Ask participants to look there when a payload doesn't work; for SQL injection it shows exactly what the database received.
-- **Restarting the app logs everyone out**, because sessions are kept in memory.
+- **Restarting the app logs everyone out**, because sessions are kept in memory (express-session's default [`MemoryStore`](https://github.com/expressjs/session#store)).
 - **`Could not load the sqlite3 native module`:** the participant's npm is set to `ignore-scripts=true`, or `node_modules` came from another OS. Fix: `npm rebuild sqlite3 --ignore-scripts=false`. Exercise 1 has a note about it.
 - **Single quotes in comments show an SQL error.** The comment is inserted with string-built SQL, so `'` ends the [string literal](https://www.sqlite.org/lang_expr.html#literal_values_constants_) early and breaks the query. Tell participants to use double quotes (`alert("x")`). It's also a nice hint that the comment field is SQL-injectable.
 
@@ -34,8 +34,8 @@ Install and start the app, log in as `user` / `user`. Nothing to solve. Make sur
 
 - **Where:** a failed login redirects to `/error?message=unable to log in user <username>`, and the error page renders `message` unescaped (`{{{message}}}` in `error.handlebars`).
 - **Solution:** `http://localhost:3000/error?message=<script>alert("hello")</script>`
-- **Bonus (steal the cookie):** `http://localhost:3000/error?message=<script>alert(document.cookie)</script>`. This works because the cookie isn't `HttpOnly`.
-- **Discussion:** the attacker sends the link to a victim; the script runs in the victim's browser on the real site, with their session. Fix: escape output (`{{ }}` instead of `{{{ }}}`), mark the cookie `HttpOnly`, add a Content Security Policy.
+- **Bonus (steal the cookie):** `http://localhost:3000/error?message=<script>alert(document.cookie)</script>`. This works because the cookie isn't [`HttpOnly`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#httponly), so [`document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie) can read it.
+- **Discussion:** the attacker sends the link to a victim; the script runs in the victim's browser on the real site, with their session ([MDN: XSS](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS)). Fix: escape output (`{{ }}` instead of `{{{ }}}`, see [Handlebars HTML escaping](https://handlebarsjs.com/guide/expressions.html#html-escaping)), mark the cookie `HttpOnly`, add a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP).
 
 ## Exercise 3 – SQL injection
 
@@ -49,13 +49,13 @@ Install and start the app, log in as `user` / `user`. Nothing to solve. Make sur
 - **Where:** comments are stored as-is and rendered unescaped (`{{{comment}}}` in `voting.handlebars`).
 - **Solution:** post the comment `<script>alert("Hacked!")</script>`. It runs every time anyone opens the voting page.
 - **Gotchas:** use double quotes (see above). A broken payload can mess up the voting page; reset with `npm run seed`.
-- **Discussion:** unlike reflected XSS, nobody needs to click a crafted link: everyone who views the page is hit, for as long as the comment exists.
+- **Discussion:** unlike reflected XSS, nobody needs to click a crafted link: everyone who views the page is hit, for as long as the comment exists ([MDN: XSS](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS)).
 
 ## Exercise 5 – Parameter tampering and XSS
 
-- **5.1 – comment as someone else:** the comment form has a hidden `<input name="userId">`, and the server trusts it. In DevTools → Elements, change its value (e.g. `3` for `zeratul`) and submit. The comment shows up with that author.
+- **5.1 – comment as someone else:** the comment form has a [hidden](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/hidden) `<input name="userId">`, and the server trusts it. In DevTools → Elements, change its value (e.g. `3` for `zeratul`) and submit. The comment shows up with that author.
 - **5.2 – rig the election:** post the comment from the exercise's solution. It rewrites every `candidateId` field on the voting page to `2`, so whoever clicks **Vote** votes for Eleanor Wheeler. Each user can only vote once, so participants need to log in as another user (exercise 3) or run `npm run seed` to see it work.
-- **Bonus (hide your tracks):** one approach is to let the script remove its own comment after rewriting the votes, e.g. save `document.currentScript` at the top and call `.closest("article").remove()` on it.
+- **Bonus (hide your tracks):** one approach is to let the script remove its own comment after rewriting the votes, e.g. save [`document.currentScript`](https://developer.mozilla.org/en-US/docs/Web/API/Document/currentScript) at the top and call [`.closest("article")`](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest)`.remove()` on it.
 - **Discussion:** never trust anything the client sends, including hidden fields. The server should take the user id from the session. Combined with XSS, an attacker can quietly change what other users' actions do.
 
 ## Exercise 6 – SQL injection continued
@@ -73,13 +73,13 @@ Open-ended. Ideas for **7.1** are in the exercise (create or drop tables, replac
 
 | Step | What participants should find |
 |---|---|
-| 8.1 Cookie flags | `session-cookie` has no `HttpOnly` (`httpOnly: false` in `src/index.js`), no `Secure` and no `SameSite`. |
-| 8.2 Session fixation | The session ID is the same before and after login. The app never regenerates it, so an attacker who planted an ID gets a logged-in session. |
-| 8.3 Weak session ID | Trick question: the IDs are random (express-session) and not predictable. The real weakness is the hard-coded signing secret `"SuperSecret"` in the source code. |
-| 8.4 Hijacking via XSS | A comment like `<script>console.log(document.cookie)</script>` exposes the cookie, because it isn't `HttpOnly`. |
-| 8.5 Logout | Logout only deletes the cookie in the browser (`req.session = null` and `clearCookie`). The session still exists on the server, so an old cookie still works after logging out. |
+| 8.1 Cookie flags | `session-cookie` has no [`HttpOnly`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#httponly) (`httpOnly: false` in `src/index.js`), no [`Secure`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#secure) and no [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#samesitesamesite-value). See [MDN: cookie security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies#security). |
+| 8.2 Session fixation | The session ID is the same before and after login. The app never [regenerates](https://github.com/expressjs/session#sessionregeneratecallback) it, so an attacker who planted an ID gets a logged-in session. |
+| 8.3 Weak session ID | Trick question: the IDs are random ([express-session](https://github.com/expressjs/session#genid)) and not predictable. The real weakness is the hard-coded signing [secret](https://github.com/expressjs/session#secret) `"SuperSecret"` in the source code. |
+| 8.4 Hijacking via XSS | A comment like `<script>console.log(document.cookie)</script>` exposes the cookie through [`document.cookie`](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie), because it isn't `HttpOnly`. |
+| 8.5 Logout | Logout only deletes the cookie in the browser (`req.session = null` and `clearCookie`). The session still exists on the server (it's never [destroyed](https://github.com/expressjs/session#sessiondestroycallback)), so an old cookie still works after logging out. |
 
-**Fixes:** `req.session.regenerate()` on login, `req.session.destroy()` on logout, `httpOnly: true`, `secure: true` (with HTTPS), `sameSite: "lax"`, a secret from an environment variable, and a session timeout (`maxAge`).
+**Fixes:** [`req.session.regenerate()`](https://github.com/expressjs/session#sessionregeneratecallback) on login, [`req.session.destroy()`](https://github.com/expressjs/session#sessiondestroycallback) on logout, [`httpOnly: true`](https://github.com/expressjs/session#cookiehttponly), [`secure: true`](https://github.com/expressjs/session#cookiesecure) (with HTTPS), [`sameSite: "lax"`](https://github.com/expressjs/session#cookiesamesite) (also protects against [CSRF](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/CSRF)), a [secret](https://github.com/expressjs/session#secret) from an environment variable, and a session timeout ([`maxAge`](https://github.com/expressjs/session#cookiemaxage)). Express's [security best practices](https://expressjs.com/en/advanced/best-practice-security/#use-cookies-securely) cover the same ground. See [Fixes](#5-session-management-exercise-8) for the code.
 
 ## Fixes
 
@@ -87,7 +87,7 @@ The code changes that fix each vulnerability, useful for exercise 7.2 or for sho
 
 ### 1. Reflected XSS (exercise 2)
 
-Escape everything the error page shows. Handlebars escapes `{{ }}` but not `{{{ }}}`. The error message and stack can also contain user input, so they're escaped too.
+Escape everything the error page shows. [Handlebars escapes](https://handlebarsjs.com/guide/expressions.html#html-escaping) `{{ }}` but not `{{{ }}}` (express-handlebars uses Handlebars for rendering). The error message and stack can also contain user input, so they're escaped too.
 
 ```diff
 diff --git a/vulnerable-application/src/views/error.handlebars b/vulnerable-application/src/views/error.handlebars
@@ -254,7 +254,7 @@ index 907a09e..1a324ac 100644
 
 ### 5. Session management (exercise 8)
 
-Harden the session cookie, get the secret from the environment, issue a new session id at login, and destroy the session on logout. `secure` is only on in production, because the browser won't send a `Secure` cookie over plain HTTP on `localhost`.
+Harden the session cookie, get the secret from the environment, issue a new session id at login, and destroy the session on logout. `secure` is only on in production, because [express-session doesn't set a `Secure` cookie](https://github.com/expressjs/session#cookiesecure) on a plain-HTTP connection like `http://localhost`. Login and logout pass errors to `next`, Express's [error handling](https://expressjs.com/en/guide/error-handling/). The [express-session options](https://github.com/expressjs/session#options) and Express's [cookie security advice](https://expressjs.com/en/advanced/best-practice-security/#use-cookies-securely) explain each setting.
 
 ```diff
 diff --git a/vulnerable-application/src/index.js b/vulnerable-application/src/index.js
