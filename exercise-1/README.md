@@ -43,9 +43,9 @@ $ npm run dev
 ```
 
 <details>
-  <summary>:exclamation: Getting <code>Could not locate the bindings file</code>?</summary>
+  <summary>:exclamation: Getting <code>Could not load the sqlite3 native module</code>?</summary>
 
-  Your npm is probably configured with `ignore-scripts=true` (you can check with `npm config get ignore-scripts`). This stops the `sqlite3` package from building its native module during `npm install`.
+  Your npm is probably configured with `ignore-scripts=true` (you can check with `npm config get ignore-scripts`). This stops the `sqlite3` package from building its native module during `npm install`. You can also get this error if `node_modules` was installed on a different operating system.
 
   Run this command in the `vulnerable-application` folder, then start the app again with `npm run dev`:
 

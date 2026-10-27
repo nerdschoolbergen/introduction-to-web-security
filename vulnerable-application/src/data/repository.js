@@ -1,5 +1,5 @@
 import { existsSync } from "fs";
-import sqlite3 from "sqlite3";
+import sqlite3 from "./sqlite.js";
 import { seedSql } from "./seed.js";
 
 const dbPath = './src/data/data.sqlite';
