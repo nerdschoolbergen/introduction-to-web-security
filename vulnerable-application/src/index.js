@@ -2,7 +2,6 @@ import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
 import { addComment, getCandidates, getComments, getHasUserVoted, getUserIdByCredentials, getUsers, vote } from './data/repository.js';
-import bodyParser from 'body-parser';
 import logger from 'morgan';
 
 const app = express();
@@ -21,7 +20,7 @@ app.use(session({
 
 app.use(express.static('src/public'));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './src/views');
