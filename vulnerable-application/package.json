@@ -20,6 +20,7 @@
     "nodemon": "^3.1.14"
   },
   "allowScripts": {
+    "fsevents": false,
     "sqlite3": true
   }
 }
