@@ -67,12 +67,7 @@ Install and start the app, log in as `user` / `user`. Nothing to solve. Make sur
 
 ## Exercise 7 – Bonus exercises
 
-Open-ended. Ideas for **7.1** are in the exercise (create or drop tables, replace the page, send cookies elsewhere). For **7.2 – fix the vulnerabilities**, the main fixes are:
-
-- Parameterized queries everywhere in `repository.js`.
-- Escaped output: `{{ }}` instead of `{{{ }}}` in `error.handlebars` and `voting.handlebars`.
-- Take the comment author from `req.session.loggedInUser`, not the form.
-- Session hardening from exercise 8.
+Open-ended. Ideas for **7.1** are in the exercise (create or drop tables, replace the page, send cookies elsewhere). For **7.2 – fix the vulnerabilities**, see [Fixes](#fixes) below for the code changes.
 
 ## Exercise 8 (beta) – Broken authentication and session management
 
@@ -85,3 +80,258 @@ Open-ended. Ideas for **7.1** are in the exercise (create or drop tables, replac
 | 8.5 Logout | Logout only deletes the cookie in the browser (`req.session = null` and `clearCookie`). The session still exists on the server, so an old cookie still works after logging out. |
 
 **Fixes:** `req.session.regenerate()` on login, `req.session.destroy()` on logout, `httpOnly: true`, `secure: true` (with HTTPS), `sameSite: "lax"`, a secret from an environment variable, and a session timeout (`maxAge`).
+
+## Fixes
+
+The code changes that fix each vulnerability, useful for exercise 7.2 or for showing the fix after an exercise. Each diff is against the app as it is in this repository. Apply them in order with `git apply` (copy a diff into a file and run `git apply <file>` from the repo root), or read them as a guide. Passwords are still stored in plain text; hashing them would also need changes to the seed data, so it isn't shown here.
+
+### 1. Reflected XSS (exercise 2)
+
+Escape everything the error page shows. Handlebars escapes `{{ }}` but not `{{{ }}}`. The error message and stack can also contain user input, so they're escaped too.
+
+```diff
+diff --git a/vulnerable-application/src/views/error.handlebars b/vulnerable-application/src/views/error.handlebars
+index 0880c93..5c18a34 100644
+--- a/vulnerable-application/src/views/error.handlebars
++++ b/vulnerable-application/src/views/error.handlebars
+@@ -1,8 +1,8 @@
+ <article>
+   <h2>An error occured</h2>
+-  <h3>{{{message}}}</h3>
+-  <p>{{{error.status}}}</p>
+-  <pre>{{{error.stack}}}</pre>
++  <h3>{{message}}</h3>
++  <p>{{error.status}}</p>
++  <pre>{{error.stack}}</pre>
+ 
+   <a href="/">Go back home</a>
+ </article>
+```
+
+**Blocks:** `/error?message=<script>…</script>` now shows the text instead of running it.
+
+### 2. Persisted XSS (exercises 4 and 5.2)
+
+Escape comments when they're rendered.
+
+```diff
+diff --git a/vulnerable-application/src/views/voting.handlebars b/vulnerable-application/src/views/voting.handlebars
+index 50898f9..907a09e 100644
+--- a/vulnerable-application/src/views/voting.handlebars
++++ b/vulnerable-application/src/views/voting.handlebars
+@@ -37,7 +37,7 @@
+     {{#each comments}}
+     <article class="comment">
+       <h4>Author: {{author}}</h4>
+-      <p>{{{comment}}}</p>
++      <p>{{comment}}</p>
+     </article>
+     {{/each}}
+   </div>
+```
+
+**Blocks:** script comments are shown as text, so the alert and the vote-rigging script don't run.
+
+### 3. SQL injection (exercises 3 and 6)
+
+Use parameterized queries (`?` placeholders) everywhere, so input is always treated as data. `db.exec` doesn't support parameters, so the vote now runs its two updates with a new `run` helper inside the transaction.
+
+```diff
+diff --git a/vulnerable-application/src/data/repository.js b/vulnerable-application/src/data/repository.js
+index 1ecd42a..8a1e9d0 100644
+--- a/vulnerable-application/src/data/repository.js
++++ b/vulnerable-application/src/data/repository.js
+@@ -41,6 +41,17 @@ const queryOne = (sql, params) => {
+   });
+ };
+ 
++const run = (sql, params) => {
++  return new Promise(function (resolve, reject) {
++    db.run(sql, params, function (error) {
++      if (error)
++        reject(error);
++      else
++        resolve();
++    });
++  });
++};
++
+ const execute = (sql) => {
+   return new Promise(function (resolve, reject) {
+     db.exec(sql, function (error) {
+@@ -58,7 +69,7 @@ export const getCandidates = () => {
+ 
+ export const getHasUserVoted = async (userId) => {
+   try {
+-    const user = await queryOne(`SELECT * FROM user WHERE id=${userId}`);
++    const user = await queryOne("SELECT * FROM user WHERE id = ?", [userId]);
+     return user?.hasVoted === 1;
+   } catch {
+     return false;
+@@ -66,17 +77,17 @@ export const getHasUserVoted = async (userId) => {
+ }
+ 
+ export const addComment = async ({ userId, comment }) => {
+-  const user = await queryOne(`SELECT * FROM user WHERE id=${userId}`);
++  const user = await queryOne("SELECT * FROM user WHERE id = ?", [userId]);
+   if (!user) {
+     return
+   }
+ 
+   ``
+-  await execute(`INSERT INTO comment (author, comment) VALUES ('${user?.username}', '${comment}')`);
++  await run("INSERT INTO comment (author, comment) VALUES (?, ?)", [user.username, comment]);
+ }
+ 
+ export const getUserIdByCredentials = async ({ username, password }) => {
+-  const result = await queryOne(`SELECT id FROM user WHERE username='${username}' AND password='${password}'`);
++  const result = await queryOne("SELECT id FROM user WHERE username = ? AND password = ?", [username, password]);
+   return result?.id;
+ }
+ 
+@@ -90,19 +101,10 @@ export const getComments = async () => {
+ 
+ export const vote = async ({ userId, candidateId }) => {
+   try {
+-    await execute(`
+-      BEGIN TRANSACTION;
+-
+-      UPDATE candidate
+-      SET votes = votes + 1
+-      WHERE id = ${candidateId};
+-
+-      UPDATE user
+-      SET hasVoted = true
+-      WHERE id = ${userId};
+-
+-      COMMIT;
+-    `);
++    await execute("BEGIN TRANSACTION");
++    await run("UPDATE candidate SET votes = votes + 1 WHERE id = ?", [candidateId]);
++    await run("UPDATE user SET hasVoted = true WHERE id = ?", [userId]);
++    await execute("COMMIT");
+   } catch (error) {
+     // Don't leave the transaction open if one of the statements failed
+     await execute("ROLLBACK").catch(() => {});
+```
+
+**Blocks:** `user';--`, `zeratul';--` and the `UNION` payloads just fail to log in. Comments containing `'` are now saved instead of causing an SQL error.
+
+### 4. Parameter tampering (exercise 5.1)
+
+Take the comment author from the session, which the user can't change, and remove the hidden field.
+
+```diff
+diff --git a/vulnerable-application/src/index.js b/vulnerable-application/src/index.js
+index e2fe757..aca30a5 100644
+--- a/vulnerable-application/src/index.js
++++ b/vulnerable-application/src/index.js
+@@ -91,7 +91,7 @@ app.post('/add-comment', async (req, res) => {
+     res.redirect('/');
+     return;
+   }
+-  await addComment(req.body);
++  await addComment({ userId: req.session.loggedInUser, comment: req.body.comment });
+   res.redirect('/voting');
+ 
+ })
+diff --git a/vulnerable-application/src/views/voting.handlebars b/vulnerable-application/src/views/voting.handlebars
+index 907a09e..1a324ac 100644
+--- a/vulnerable-application/src/views/voting.handlebars
++++ b/vulnerable-application/src/views/voting.handlebars
+@@ -48,7 +48,6 @@
+       <fieldset>
+         <label for="comment">Comment</label>
+         <textarea name="comment"></textarea>
+-        <input type="hidden" name="userId" value="{{loggedInUser}}" />
+         <input type="submit" class="pure-button pure-button-primary" value="Submit comment" />
+       </fieldset>
+     </form>
+```
+
+**Blocks:** sending another `userId` with a comment has no effect; the comment is always posted as the logged-in user.
+
+### 5. Session management (exercise 8)
+
+Harden the session cookie, get the secret from the environment, issue a new session id at login, and destroy the session on logout. `secure` is only on in production, because the browser won't send a `Secure` cookie over plain HTTP on `localhost`.
+
+```diff
+diff --git a/vulnerable-application/src/index.js b/vulnerable-application/src/index.js
+index aca30a5..54b9fc6 100644
+--- a/vulnerable-application/src/index.js
++++ b/vulnerable-application/src/index.js
+@@ -1,3 +1,4 @@
++import { randomBytes } from 'crypto';
+ import express from 'express';
+ import { engine } from 'express-handlebars';
+ import session from 'express-session';
+@@ -14,13 +15,16 @@ app.use(logger((tokens, req, res) => {
+ }));
+ 
+ app.use(session({
+-  secret: "SuperSecret",
++  secret: process.env.SESSION_SECRET ?? randomBytes(32).toString('hex'),
+   name: "session-cookie",
+   cookie: {
+-    httpOnly: false,
++    httpOnly: true,
++    sameSite: "lax",
++    secure: process.env.NODE_ENV === "production",
++    maxAge: 60 * 60 * 1000,
+   },
+-  saveUninitialized: true,
+-  resave: true
++  saveUninitialized: false,
++  resave: false
+ }));
+ 
+ app.use(express.static('src/public'));
+@@ -37,23 +41,36 @@ app.use((req, res, next) => {
+   next()
+ })
+ 
+-app.post('/login', async (req, res) => {
++app.post('/login', async (req, res, next) => {
+   const loggedInUserId = await getUserIdByCredentials(req.body);
+   if (!loggedInUserId) {
+     res.redirect(`/error?message=unable to log in user ${req.body.username}`);
+     return
+   }
+ 
+-  req.session.loggedInUser = loggedInUserId;
+-  req.session.loggedInUsername = req.body.username;
+-  req.session.isLoggedIn = true;
+-  res.redirect("/voting");
++  // New session id on login, so a session id planted before login is useless
++  req.session.regenerate((error) => {
++    if (error) {
++      next(error);
++      return;
++    }
++    req.session.loggedInUser = loggedInUserId;
++    req.session.loggedInUsername = req.body.username;
++    req.session.isLoggedIn = true;
++    res.redirect("/voting");
++  });
+ });
+ 
+-app.get('/logout', async (req, res) => {
+-  req.session = null;
+-  res.clearCookie("session-cookie");
+-  res.redirect("/");
++app.get('/logout', (req, res, next) => {
++  // Remove the session on the server, not just the cookie in the browser
++  req.session.destroy((error) => {
++    if (error) {
++      next(error);
++      return;
++    }
++    res.clearCookie("session-cookie");
++    res.redirect("/");
++  });
+ });
+ 
+ app.get('/error', (req, res) => {
+```
+
+**Blocks:** JavaScript can't read the cookie (`HttpOnly`, so 8.4 and the exercise 2 bonus get nothing), the session id changes at login (8.2), an old cookie no longer works after logout (8.5), sessions expire after an hour, and the secret is no longer in the source code (8.3).
