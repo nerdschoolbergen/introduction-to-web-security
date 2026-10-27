@@ -10,15 +10,17 @@ In this exercise, we will look at some more complicated examples of SQL injectio
 ' UNION ALL SELECT GROUP_CONCAT(sql) as id FROM sqlite_schema--
 ```
 
+:book: The username uses [`UNION ALL`](https://www.sqlite.org/lang_select.html#compound_select_statements), the [`GROUP_CONCAT`](https://www.sqlite.org/lang_aggfunc.html#group_concat) function and the [`sqlite_schema`](https://www.sqlite.org/schematab.html) table. Look them up if you're not familiar with them.
+
 :pencil2: Inspect the source of the voting page. Do you see anything questionable?
 
-:pencil2: Look at the source code. Try to reason on _how_ we are able to extract table schemas using SQL injection.
+:pencil2: Look at the source code (the `getUserIdByCredentials` function in [`src/data/repository.js`](../vulnerable-application/src/data/repository.js)). Try to reason on _how_ we are able to extract table schemas using SQL injection.
 
 :star: Bonus: Can you change the login query to execute some arbitrary SQL to steal information?
 
 ## Get a user's password
 
-The developers of this solution has not followed any good practices, and has stored the passwords as clear text!
+The developers of this solution has not followed any good practices, and has stored the passwords as clear text! (See the [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) for how it should be done.)
 
 :pencil2: Try to use a similar technique as in the previous task to extract a users password.
 
@@ -26,32 +28,32 @@ The developers of this solution has not followed any good practices, and has sto
 
 <details>
   <summary>Hint 1</summary>
-The login form is still vulnerable. Focus on the username field. A single quote should break the query.
+The login form is still vulnerable. Focus on the username field. A single quote should break the query, because it ends the [string literal](https://www.sqlite.org/lang_expr.html#literal_values_constants_) early.
 </details>
 
 <details>
   <summary>Hint 2</summary>
-  Figure out how many columns (and their names) the original SELECT returns. Observe what the app displays after login (e.g. an "id"?). You only need to return one column matching that expected name/type.
+  Figure out how many columns (and their names) the original SELECT returns. Both sides of a [`UNION`](https://www.sqlite.org/lang_select.html#compound_select_statements) must return the same number of columns. Observe what the app displays after login (e.g. an "id"?). You only need to return one column matching that expected name/type.
 </details>
 
 <details>
   <summary>Hint 3</summary>
-  If the original query selects a column named `id`, your injected SELECT must output a column aliased to `id` so the application code continues without errors.
+  If the original query selects a column named `id`, your injected SELECT must output a column aliased to `id` (with `AS`, which [sets the column's name](https://www.sqlite.org/c3ref/column_name.html)) so the application code continues without errors.
 </details>
 
 <details>
   <summary>Hint 4</summary>
-  SQLite exposes table creation statements in `sqlite_schema` (older: `sqlite_master`). Use `GROUP_CONCAT(sql)` to merge rows into one string so it fits a single-column UNION.
+  SQLite exposes table creation statements in [`sqlite_schema`](https://www.sqlite.org/schematab.html) (older: `sqlite_master`). Use [`GROUP_CONCAT(sql)`](https://www.sqlite.org/lang_aggfunc.html#group_concat) to merge rows into one string so it fits a single-column UNION.
 </details>
 
 <details>
   <summary>Hint 5</summary>
-  Terminate the rest of the original query using `--` (and maybe a trailing space).
+  Terminate the rest of the original query using `--`, which starts an [SQL comment](https://www.sqlite.org/lang_comment.html) (and maybe a trailing space).
 </details>
 
 <details>
   <summary>Hint 6</summary>
-  Once you know the users table name and columns, you can concatenate username and password fields with the string concatenation operator `||` inside `GROUP_CONCAT`.
+  Once you know the users table name and columns, you can concatenate username and password fields with the string concatenation operator [`||`](https://www.sqlite.org/lang_expr.html#operators_and_parse_affecting_attributes) inside `GROUP_CONCAT`.
 </details>
 
 ### [Go to exercise 7 :arrow_right:](../exercise-7/README.md)
