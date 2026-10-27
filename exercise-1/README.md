@@ -9,8 +9,10 @@ You will learn to:
 
 ## Before you start
 
-- :pencil2: Start by cloning this repository into a folder on your computer if you haven't done so already. If you've never used git before, you can alternatively use the "Download ZIP" button to the right.
-- :book: Although you have this `README.md` file on your computer, it's easier to read it on GitHub with formatting. We therefore recommend you keep a web browser tab open with the exercise tasks.
+- :pencil2: Start by git cloning this repository into a folder on your computer if you haven't done so already. If you've never used git before, you can alternatively use the "Download ZIP" button on the GitHub.com repo homepage (see [GitHub docs](https://docs.github.com/en/repositories/working-with-files/using-files/downloading-files-from-github#downloading-a-repositorys-files) for instructions)
+- :exclamation: Make sure you remember where you cloned/downloaded the repository on your computer.
+- :exclamation: Do not store copies of git repositories inside cloud file storage like OneDrive, Dropbox, iCloud or similar. This can cause corruption of the local git repository and conflicts. Create a separate folder on your computer for git repositores if needed.
+- :book: Although you have this `README.md` file on your computer, it's easier to read it on GitHub with formatting. We therefore recommend you keep a web browser tab open with the exercise tasks on GitHub.com.
 
 ## 1.1 Installing software
 
@@ -18,13 +20,29 @@ You will learn to:
 
 :book: Node.js is the platform/runtime that's going to run our web server and backend code. You can test if you already have Node.js installed by opening a terminal and entering `node -v` which should return a version number if it's installed.
 
-:pencil2: If you don't have Node.js installed, you can download the latest LTS (long-term support) release from [nodejs.org](https://nodejs.org/en/).
+:pencil2: If you don't have Node.js installed, you can download the latest LTS (long-term support) release from [nodejs.org](https://nodejs.org/en/download).
 
 :exclamation: **Note:** If you have Node installed with a version _less_ than the latest LTS version, please upgrade to the latest LTS version before continuing.
+
+:pencil2: Before you continue, verify that node is installed correctly by opening a terminal window and running `node -v`:
+```sh
+node -v
+```
+This should print the Node version number - make sure it's the latest LTS version before continuing. If not, update Node.
+
+:book: Node.js comes with a built in tool called `npm` to download and install third party libraries and dependencies used in applications. We are going to use this to build and run the workshop source code.
+
+:pencil2: Also verify that `npm` works (bundled with Node):
+```sh
+npm -v
+```
+This should print the npm version number.
 
 ### 1.1.2 Chrome
 
 :pencil2: [Install Google Chrome if you don't have it](https://www.google.com/chrome/browser/desktop/)
+
+:exclamation: If you skip this step, some of the exercises will not make sense, as we are going to use the Dev Tools Extension that comes with Chrome.
 
 ## 1.2 Local development environment setup
 
